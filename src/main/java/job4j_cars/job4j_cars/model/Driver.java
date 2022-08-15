@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -20,11 +22,17 @@ public class Driver {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "second_name")
+    private String secondName;
+
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    private List<Car> phones = new ArrayList<>();
 
     public Driver() {
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -36,11 +44,13 @@ public class Driver {
         }
         Driver driver = (Driver) o;
         return id == driver.id
-                && Objects.equals(name, driver.name);
+                && Objects.equals(firstName, driver.firstName)
+                && Objects.equals(secondName, driver.secondName)
+                && Objects.equals(phones, driver.phones);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, firstName, secondName, phones);
     }
 }

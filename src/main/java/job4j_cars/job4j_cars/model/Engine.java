@@ -22,7 +22,7 @@ public class Engine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name_engine;
+    private String nameEngine;
 
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     @ToString.Exclude
@@ -41,11 +41,11 @@ public class Engine {
         }
         Engine engine = (Engine) o;
         return id == engine.id
-                && Objects.equals(name_engine, engine.name_engine);
+                && Objects.equals(nameEngine, engine.nameEngine);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name_engine);
+        return Objects.hash(id, nameEngine);
     }
 }

@@ -22,7 +22,8 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String car_name;
+    @Column(name = "car_name")
+    private String name;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "history_owner", joinColumns = {
@@ -31,10 +32,13 @@ public class Car {
             @JoinColumn(name = "car_id", nullable = false, updatable = false)})
     private Set<Driver> drivers = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
+    private Engine engine;
+
     public Car() {
 
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -46,12 +50,12 @@ public class Car {
         }
         Car car = (Car) o;
         return id == car.id
-                && Objects.equals(car_name, car.car_name)
+                && Objects.equals(name, car.name)
                 && Objects.equals(drivers, car.drivers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, car_name, drivers);
+        return Objects.hash(id, name, drivers);
     }
 }

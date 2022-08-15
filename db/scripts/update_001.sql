@@ -13,8 +13,7 @@ create table if not exists drivers (
 
 create table if not exists cars (
     id serial primary key,
-    car_name varchar (50) not null,
-    driver_id int not null references drivers(id)
+    car_name varchar (50) not null
 );
 
 
