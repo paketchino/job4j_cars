@@ -24,6 +24,10 @@
         <mapping class="job4j_cars.job4j_cars.model.Driver"/>
         <mapping class="job4j_cars.job4j_cars.model.Engine"/>
 
+        <mapping class="job4j_cars.job4j_cars.model.Advertisement"/>
+        <mapping class="job4j_cars.job4j_cars.model.Author"/>
+        <mapping class="job4j_cars.job4j_cars.model.Mark"/>
+        <mapping class="job4j_cars.job4j_cars.model.CarcaseCar"/>
 
     </session-factory>
 </hibernate-configuration>
