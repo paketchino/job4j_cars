@@ -1,30 +1,26 @@
 package job4j_cars.job4j_cars.model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Objects;
 
-@ToString
-@AllArgsConstructor
-@Setter
-@Getter
 @Entity
-@Table(name = "engines")
-public class Engine {
+@Table(name = "bodyCars")
+@Getter
+@Setter
+@AllArgsConstructor
+public class BodyCar {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @JoinColumn(name = "engine_name")
-    private String nameEngine;
-
-    public Engine() {
-    }
+    @JoinColumn(name = "carcase")
+    private String name;
 
     @Override
     public boolean equals(Object o) {
@@ -34,13 +30,17 @@ public class Engine {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Engine engine = (Engine) o;
-        return id == engine.id
-                && Objects.equals(nameEngine, engine.nameEngine);
+        BodyCar bodyCar = (BodyCar) o;
+        return id == bodyCar.id && Objects.equals(name, bodyCar.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nameEngine);
+        return Objects.hash(id, name);
     }
+
+    public BodyCar() {
+
+    }
+
 }

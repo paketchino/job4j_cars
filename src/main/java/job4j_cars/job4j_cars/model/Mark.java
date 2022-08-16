@@ -2,19 +2,17 @@ package job4j_cars.job4j_cars.model;
 
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "marks")
 @Getter
 @Setter
 @AllArgsConstructor
-@EqualsAndHashCode
 public class Mark {
 
     @Id
@@ -24,8 +22,22 @@ public class Mark {
     @JoinColumn(name = "marks")
     private String name;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private List<Advertisement> advertisements;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Mark mark = (Mark) o;
+        return id == mark.id && Objects.equals(name, mark.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 
     public Mark() {
 
