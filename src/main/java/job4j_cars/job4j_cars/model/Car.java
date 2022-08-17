@@ -1,19 +1,16 @@
 package job4j_cars.job4j_cars.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @ToString
 @AllArgsConstructor
 @Setter
 @Getter
+@EqualsAndHashCode
 @Entity
 @Table(name = "cars")
 public class Car {
@@ -48,22 +45,4 @@ public class Car {
 
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Car car = (Car) o;
-        return id == car.id
-                && Objects.equals(name, car.name)
-                && Objects.equals(drivers, car.drivers);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, drivers);
-    }
 }

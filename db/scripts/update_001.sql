@@ -40,7 +40,7 @@ create table if not exists advertisements (
     marks_id int not null references marks(id),
     carcase_cars_id int not null references carcase_cars(id),
     is_cell boolean default false,
-    photo_car byte not null
+    photo_car bytea not null
 );
 
 create table if not exists author (

@@ -2,15 +2,16 @@ package job4j_cars.job4j_cars.model;
 
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "advertisements")
 @Getter
+@EqualsAndHashCode
 @Setter
 @AllArgsConstructor
 public class Advertisement {
@@ -29,30 +30,14 @@ public class Advertisement {
     private boolean isCell;
 
     @JoinColumn(name = "photo_car")
-    private byte photo;
+    private byte[] photo;
+
+    @ManyToOne()
+    @JoinColumn(name = "car_id", foreignKey = @ForeignKey(name = "CAR_ID_FK"))
+    private Car cars;
 
     public Advertisement() {
 
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Advertisement that = (Advertisement) o;
-        return id == that.id
-                && isCell == that.isCell
-                && photo == that.photo
-                && Objects.equals(header, that.header)
-                && Objects.equals(description, that.description);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, header, description, isCell, photo);
-    }
 }

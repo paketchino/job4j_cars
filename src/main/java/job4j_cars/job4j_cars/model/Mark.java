@@ -2,12 +2,13 @@ package job4j_cars.job4j_cars.model;
 
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Objects;
 
+@EqualsAndHashCode
 @Entity
 @Table(name = "marks")
 @Getter
@@ -21,23 +22,6 @@ public class Mark {
 
     @JoinColumn(name = "marks")
     private String name;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Mark mark = (Mark) o;
-        return id == mark.id && Objects.equals(name, mark.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
-    }
 
     public Mark() {
 
