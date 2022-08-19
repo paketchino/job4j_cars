@@ -7,8 +7,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 
 public class AdRepository {
@@ -17,9 +16,6 @@ public class AdRepository {
     public static void main(String[] args) {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure().build();
-
-        LocalDateTime beginDate = LocalDateTime.of(2022, 8, 15, 15, 05, 30);
-        LocalDateTime endDate = LocalDateTime.of(2022, 8, 18, 15, 05, 30);
         try {
             SessionFactory sf = new MetadataSources(registry)
                     .buildMetadata()
@@ -29,7 +25,7 @@ public class AdRepository {
 
             findAddWithDefiniteMarkCar(session, "BMW");
             findAddWithPhoto(session);
-            findAdForLastDay(session, beginDate, endDate);
+            findAdForLastDay(session);
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
@@ -39,14 +35,15 @@ public class AdRepository {
         }
     }
 
-    public static List<AdRepository> findAdForLastDay(Session session, LocalDateTime beginDate, LocalDateTime endDate) {
-        Timestamp bDateTime = Timestamp.valueOf(beginDate);
-        Timestamp eDateTime = Timestamp.valueOf(endDate);
+    public static List<AdRepository> findAdForLastDay(Session session) {
+      Calendar nowDate = Calendar.getInstance();
+      Calendar timestamp = Calendar.getInstance();
+      timestamp.add(Calendar.DAY_OF_YEAR, - 1);
         return session
         .createQuery("select distinct ad FROM Advertisement ad join fetch ad.created "
                 + "where ad.created between :adDateBegin and :adDateEnd")
-                .setParameter("adDateBegin", bDateTime)
-                .setParameter("adDateEnd", eDateTime)
+                .setParameter("adDateBegin", timestamp)
+                .setParameter("adDateEnd", nowDate)
                 .list();
     }
 
