@@ -7,7 +7,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class AdRepository {
@@ -36,14 +36,13 @@ public class AdRepository {
     }
 
     public static List<AdRepository> findAdForLastDay(Session session) {
-      Calendar nowDate = Calendar.getInstance();
-      Calendar timestamp = Calendar.getInstance();
-      timestamp.add(Calendar.DAY_OF_YEAR, - 1);
+        LocalDateTime minusDay = LocalDateTime.now().minusDays(1);
+        LocalDateTime now = LocalDateTime.now();
         return session
         .createQuery("select distinct ad FROM Advertisement ad join fetch ad.created "
                 + "where ad.created between :adDateBegin and :adDateEnd")
-                .setParameter("adDateBegin", timestamp)
-                .setParameter("adDateEnd", nowDate)
+                .setParameter("adDateBegin", minusDay)
+                .setParameter("adDateEnd", now)
                 .list();
     }
 
