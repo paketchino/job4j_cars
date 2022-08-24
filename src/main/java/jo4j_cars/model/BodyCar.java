@@ -1,30 +1,27 @@
-package job4j_cars.job4j_cars.model;
+package jo4j_cars.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "bodyCars")
 @Getter
 @Setter
 @EqualsAndHashCode
-@AllArgsConstructor
-public class BodyCar {
+@NoArgsConstructor
+@RequiredArgsConstructor
+public class BodyCar implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NonNull
     @JoinColumn(name = "carcase")
     private String name;
 
-    public BodyCar() {
-
-    }
 
 }

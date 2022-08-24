@@ -1,29 +1,27 @@
-package job4j_cars.job4j_cars.model;
+package jo4j_cars.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @EqualsAndHashCode
 @Entity
 @Table(name = "marks")
 @Getter
 @Setter
-@AllArgsConstructor
-public class Mark {
+@ToString
+@RequiredArgsConstructor
+@NoArgsConstructor
+public class Mark implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NonNull
     @JoinColumn(name = "marks")
     private String name;
 
-    public Mark() {
-
-    }
 }
