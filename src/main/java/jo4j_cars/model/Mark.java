@@ -6,12 +6,11 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@EqualsAndHashCode
 @Entity
 @Table(name = "marks")
 @Getter
+@EqualsAndHashCode
 @Setter
-@ToString
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Mark implements Serializable {
@@ -24,4 +23,10 @@ public class Mark implements Serializable {
     @JoinColumn(name = "marks")
     private String name;
 
+    @Override
+    public String toString() {
+        return "Mark{" +
+                "id=" + id + ", name='" + name
+                + '\'' + '}';
+    }
 }

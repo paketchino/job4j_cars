@@ -23,5 +23,4 @@ public class Engine implements Serializable {
     @JoinColumn(name = "engine_name")
     private String nameEngine;
 
-
 }

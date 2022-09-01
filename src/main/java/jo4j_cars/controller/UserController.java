@@ -22,20 +22,11 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/loginPage")
-    public String loginPage(Model model,
-                            @RequestParam(name = "fail", required = false) Boolean fail,
-                            HttpSession session) {
-        FindUser.findUser(model, session);
-        model.addAttribute("fail", fail != null);
-        return "login";
-    }
-
     @GetMapping("/addUser")
     public String addUser(HttpSession session, Model model,
-                         @RequestParam (name = "fail", required = false) Boolean fail ) {
-        FindUser.findUser(model, session);
+                          @RequestParam (name = "fail", required = false) Boolean fail ) {
         model.addAttribute("fail", fail != null);
+        FindUser.findUser(model, session);
         return "addUser";
     }
 
@@ -49,13 +40,14 @@ public class UserController {
         return "redirect:/loginPage";
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session, Model model) {
+    @GetMapping("/loginPage")
+    public String loginPage(Model model,
+                            @RequestParam(name = "fail", required = false) Boolean fail,
+                            HttpSession session) {
+        model.addAttribute("fail", fail != null);
         FindUser.findUser(model, session);
-        session.invalidate();
-        return "redirect:/loginPage";
+        return "login";
     }
-
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpServletRequest req) {
@@ -69,6 +61,14 @@ public class UserController {
         session.setAttribute("user", userStore.get());
         return "redirect:/index";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session, Model model) {
+        FindUser.findUser(model, session);
+        session.invalidate();
+        return "redirect:/loginPage";
+    }
+
 
     @GetMapping("/fail")
     public String fail() {

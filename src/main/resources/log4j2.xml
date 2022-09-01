@@ -6,6 +6,9 @@
         </Console>
     </Appenders>
     <Loggers>
+        <Logger name="org.hibernate.stat">
+            <level value="DEBUG"/>
+        </Logger>
         <!-- avoid duplicated logs with additivity=false -->
         <Logger name="com.mkyong" level="debug" additivity="false">
             <AppenderRef ref="LogToConsole"/>

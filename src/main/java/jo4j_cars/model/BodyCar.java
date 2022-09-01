@@ -9,8 +9,9 @@ import java.io.Serializable;
 @Entity
 @Table(name = "bodyCars")
 @Getter
-@Setter
 @EqualsAndHashCode
+@ToString
+@Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class BodyCar implements Serializable {
@@ -21,7 +22,6 @@ public class BodyCar implements Serializable {
 
     @NonNull
     @JoinColumn(name = "carcase")
-    private String name;
-
+    private String bodyName;
 
 }

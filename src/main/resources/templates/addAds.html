@@ -47,30 +47,35 @@
                     <input type="hidden" name="id" value="0"/>
                     <form>
                         <div class="form-group">
-                            <label for="body.id">Тип кузова</label>
-                            <select class="form-control" id="body.id" name="bodyId">
+                            <label for="bodyCar.id">Тип кузова</label>
+                            <select class="form-control" id="bodyCar.id" name="bodyId">
                                 <option
-                                        th:each="bodyCar : ${bodyCars}"
+                                        th:each="bodyCar: ${bodyCars}"
                                         th:value="${bodyCar.id}"
-                                        th:text="${bodyCar.name}">
+                                        th:text="${bodyCar.bodyName}">
                                 </option>
                             </select>
+                        </div>
+                        <div class="form-group">
                             <label for="mark.id">Марка</label>
                             <select class="form-control" id="mark.id" name="markId">
                                 <option
-                                        th:each="mark : ${marks}"
+                                        th:each="mark: ${marks}"
                                         th:value="${mark.id}"
                                         th:text="${mark.name}">
                                 </option>
                             </select>
+                        </div>
+                        <div class="form-group">
                             <label for="engine.id">Двигатель</label>
                             <select class="form-control" id="engine.id" name="engineId">
                                 <option
-                                        th:each="engine : ${engines}"
+                                        th:each="engine: ${engines}"
                                         th:value="${engine.id}"
-                                        th:text="${engine.name}">
+                                        th:text="${engine.nameEngine}">
                                 </option>
                             </select>
+                        </div>
                             <div class="form-group">
                                 <label> Заголовок
                                     <input type="text" class="form-control" name="name" id="name">
@@ -78,16 +83,18 @@
                                 <label> Описание
                                     <input type="text" class="form-control" name="description" id="description">
                                 </label>
+                                <div class="form-group">
+                                    <label for="name">Фотография</label>
+                                    <input type="file" class="form-control" name="file" id="file">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Сохранить</button>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Фотография</label>
-                            <input type="file" class="form-control" name="file" id="file">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Сохранить</button>
-                    </form>
-            </div>
+                            </form>
+                        </form>
+                    </div>
+                </form>
         </div>
+    </div>
 </div>
 </body>
 </html>

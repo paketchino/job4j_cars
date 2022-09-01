@@ -1,4 +1,4 @@
-package jo4j_cars.storageRepository.interfacerepository;
+package jo4j_cars.service.interfaceservice;
 
 import jo4j_cars.model.Advertisement;
 import jo4j_cars.model.BodyCar;
@@ -8,7 +8,7 @@ import jo4j_cars.model.Mark;
 import java.util.List;
 import java.util.Optional;
 
-public interface AdsRepositoryInterface {
+public interface AdsServiceInterface {
 
     List<Advertisement> findAll();
 
@@ -28,5 +28,5 @@ public interface AdsRepositoryInterface {
 
     List<BodyCar> findALLBodyCar();
 
-    List<Engine> findAllEngines();
+    List<Engine> findAllEngine();
 }

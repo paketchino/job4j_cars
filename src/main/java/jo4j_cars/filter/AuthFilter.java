@@ -28,7 +28,7 @@ public class AuthFilter implements Filter {
             filterChain.doFilter(req, res);
             return;
         }
-        if (req.getSession().getAttribute("account") == null) {
+        if (req.getSession().getAttribute("user") == null) {
             res.sendRedirect(req.getContextPath() + "/loginPage");
             return;
         }

@@ -5,13 +5,12 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@ToString
 @AllArgsConstructor
 @Setter
 @Getter
-@EqualsAndHashCode
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
@@ -27,13 +26,13 @@ public class Car implements Serializable {
 
     @NonNull
     @ManyToOne
-    @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
-    private Engine engine;
+    @JoinColumn(name = "mark_id", foreignKey = @ForeignKey(name = "MARK_ID_FK"))
+    private Mark mark;
 
     @NonNull
     @ManyToOne
-    @JoinColumn(name = "mark_id", foreignKey = @ForeignKey(name = "MARK_ID_FK"))
-    private Mark mark;
+    @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
+    private Engine engine;
 
     @NonNull
     @ManyToOne
@@ -48,5 +47,31 @@ public class Car implements Serializable {
             @JoinColumn(name = "car_id", nullable = false, updatable = false)})
     private Set<User> drivers = new HashSet<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Car car = (Car) o;
+        return id == car.id && name.equals(car.name)
+                && mark.equals(car.mark)
+                && engine.equals(car.engine)
+                && bodyCar.equals(car.bodyCar);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, mark, engine, bodyCar);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" + "id=" + id
+                + ", name='" + name + '\'' + ", mark=" + mark + ", engine="
+                + engine + ", bodyCar=" + bodyCar + '}';
+    }
 
 }

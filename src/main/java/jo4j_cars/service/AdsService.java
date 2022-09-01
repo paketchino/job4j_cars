@@ -2,9 +2,10 @@ package jo4j_cars.service;
 
 import jo4j_cars.model.Advertisement;
 import jo4j_cars.model.BodyCar;
+import jo4j_cars.model.Engine;
 import jo4j_cars.model.Mark;
+import jo4j_cars.service.interfaceservice.AdsServiceInterface;
 import jo4j_cars.storageRepository.AdsRepository;
-import jo4j_cars.storageRepository.interfacerepository.AdsRepositoryInterface;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @ThreadSafe
-public class AdsService implements AdsRepositoryInterface {
+public class AdsService implements AdsServiceInterface {
 
     private final AdsRepository adsRepository;
 
@@ -37,12 +38,12 @@ public class AdsService implements AdsRepositoryInterface {
     }
 
     @Override
-    public Optional<Advertisement> updateAds(Advertisement advertisement) {
+    public boolean updateAds(Advertisement advertisement) {
         return adsRepository.updateAds(advertisement);
     }
 
     @Override
-    public Optional<Advertisement> updateAdsStatus(Advertisement advertisement) {
+    public boolean updateAdsStatus(Advertisement advertisement) {
         return adsRepository.updateAdsStatus(advertisement);
     }
 
@@ -58,11 +59,16 @@ public class AdsService implements AdsRepositoryInterface {
 
     @Override
     public List<Mark> findAllMarkCar() {
-        return null;
+        return adsRepository.findAllMarkCar();
     }
 
     @Override
     public List<BodyCar> findALLBodyCar() {
-        return null;
+        return adsRepository.findALLBodyCar();
+    }
+
+    @Override
+    public List<Engine> findAllEngine() {
+        return adsRepository.findAllEngines();
     }
 }

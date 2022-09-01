@@ -1,15 +1,16 @@
-package jo4j_cars.storageRepository.interfacerepository;
+package jo4j_cars.service.interfaceservice;
 
-import jo4j_cars.model.*;
+import jo4j_cars.model.BodyCar;
+import jo4j_cars.model.Car;
+import jo4j_cars.model.Engine;
+import jo4j_cars.model.Mark;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface CarRepositoryInterface {
+public interface CarServiceInterface {
 
     Optional<Car> addCar(Car car);
-
-    List<Car> findAllCarForTest();
 
     Optional<Car> findById(int id);
 
@@ -23,11 +24,10 @@ public interface CarRepositoryInterface {
 
     List<BodyCar> findAllBodyType();
 
-    List<Engine> findAllEngineForTest();
-
     List<BodyCar> findBodyCarById(int id);
 
     List<Engine> findEngineById(int id);
 
     List<Mark> findMarkById(int id);
+
 }

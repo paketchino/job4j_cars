@@ -38,24 +38,15 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Добавление нового пользователя.
+               Добавление типа двигателя.
             </div>
             <div class="card-body">
-                <form th:action="@{/createUser}" method="POST" th:object="${user}">
+                <form th:action="@{/createEngine}" method="POST" th:object="${engine}">
                     <input type="hidden" name="id" value="0"/>
                     <form>
                         <div class="form-group">
                             <label> Имя
                                 <input type="text" class="form-control" name="nameOne" id="nameOne">
-                            </label>
-                            <label> Фамилия
-                                <input type="text" class="form-control" name="nameTwo" id="nameTwo">
-                            </label>
-                            <label> Логин
-                                <input type="text" class="form-control" name="login" id="login">
-                            </label>
-                            <label> Пароль
-                                <input type="text" class="form-control" name="password" id="password">
                             </label>
                         </div>
                         <button type="submit" class="btn btn-primary">Сохранить</button>
@@ -63,8 +54,8 @@
                 </form>
             </div>
             </form>
-            </div>
         </div>
     </div>
+</div>
 </body>
 </html>

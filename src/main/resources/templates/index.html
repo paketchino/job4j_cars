@@ -39,9 +39,21 @@
 </nav>
 
 <div class="row">
+    <a th:href="@{|addEngine|}">
+        <button type="submit" name="submit_button" value="main_button">
+            Добавление двигателя</button>
+    </a>
+    <a th:href="@{|addMark|}">
+        <button type="submit" name="submit_button" value="main_button">
+            Добавление марки машины</button>
+    </a>
     <a th:href="@{|addAds|}">
         <button type="submit" name="submit_button" value="main_button">
-            Добавить задание</button>
+            Добавить объявления для продажи машин</button>
+    </a>
+    <a th:href="@{|addBodyCar|}">
+        <button type="submit" name="submit_button" value="main_button">
+            Добавить тип кузова</button>
         </a>
     <table class="table">
         <thead>
@@ -56,7 +68,7 @@
         <tbody>
         <tr th:each="asdversiment: ${advertisements}">
             <td>
-                <a class="dark" th:href="@{|/asdversiment/${asdversiment.id}|}"
+                <a class="dark" th:href="@{|/advertisements/${asdversiment.id}|}"
                    th:text="${asdversiment.header}">
                 </a>
             </td>
@@ -67,10 +79,10 @@
             <td th:text="${asdversiment.user.nameOne}"> </td>
             <td>
                 <span th:if="${!asdversiment.isCell}">
-                    <span class="badge badge-warning">Продано</span>
+                    <span class="badge badge-warning">Не продано</span>
                 </span>
                 <span th:if="${asdversiment.isCell}">
-                    <span class="badge badge-success">Не продано</span>
+                    <span class="badge badge-success">Продано</span>
                 </span>
             </td>
         </tr>
