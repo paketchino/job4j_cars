@@ -1,2 +1,1 @@
-
-drop table marks cascade;
+drop table if exists marks cascade;
