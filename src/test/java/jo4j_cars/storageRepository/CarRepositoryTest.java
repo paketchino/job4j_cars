@@ -31,7 +31,7 @@ public class CarRepositoryTest {
         Mark mark = new Mark("X4");
         CarRepository carRepository = new CarRepository(sf());
         carRepository.addMark(mark);
-        Assert.assertEquals(carRepository.findAllMark().get(0), mark);
+        Assert.assertEquals(mark, carRepository.findAllMark().get(0));
     }
 
     @Test

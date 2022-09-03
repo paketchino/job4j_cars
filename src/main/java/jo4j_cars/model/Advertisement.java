@@ -61,13 +61,28 @@ public class Advertisement implements Serializable {
     @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
     private Engine engine;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "advertisements_engines", joinColumns = {
+            @JoinColumn(name = "advertisement_id", nullable = false, updatable = false)
+    }, inverseJoinColumns = {
+            @JoinColumn(name = "engine_id", nullable = false, insertable = false)
+    })
     private Set<Engine> enginesSet = new HashSet<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "advertisements_marks", joinColumns = {
+            @JoinColumn(name = "advertisement_id", nullable = false, updatable = false)
+    }, inverseJoinColumns = {
+            @JoinColumn(name = "mark_id", nullable = false, insertable = false)
+    })
     private Set<Mark> markSet = new HashSet<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "advertisements_bodyCars", joinColumns = {
+            @JoinColumn(name = "advertisement_id", nullable = false, updatable = false)
+    }, inverseJoinColumns = {
+            @JoinColumn(name = "bodyCar_id", nullable = false, insertable = false)
+    })
     private Set<BodyCar> bodyCarSet = new HashSet<>();
 
     @Override

@@ -11,33 +11,48 @@ import java.util.Set;
 @Setter
 @Entity
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Table(name = "users")
 public class User implements Serializable {
 
-    @NonNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
     @NonNull
-    @JoinColumn(name = "author_first_name")
+    @Column(name = "author_first_name")
     private String nameOne;
 
     @NonNull
-    @JoinColumn(name = "author_second_name")
+    @Column(name = "author_second_name")
     private String nameTwo;
 
     @NonNull
-    @JoinColumn(name = "login")
+    @Column(name = "login")
     private String login;
 
     @NonNull
-    @JoinColumn(name = "password")
+    @Column(name = "password")
     private String password;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Car> usersCar;
+
+    public User(int id, @NonNull String nameOne, @NonNull String nameTwo, @NonNull String login, @NonNull String password) {
+        this.id = id;
+        this.nameOne = nameOne;
+        this.nameTwo = nameTwo;
+        this.login = login;
+        this.password = password;
+    }
+
+    public User(int id, @NonNull String nameOne, @NonNull String nameTwo, @NonNull String login, @NonNull String password, Set<Car> usersCar) {
+        this.id = id;
+        this.nameOne = nameOne;
+        this.nameTwo = nameTwo;
+        this.login = login;
+        this.password = password;
+        this.usersCar = usersCar;
+    }
 
     @Override
     public boolean equals(Object o) {
