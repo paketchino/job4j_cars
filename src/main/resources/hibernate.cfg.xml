@@ -20,11 +20,11 @@
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
 
-        <mapping class="jo4j_cars.model.User"/>
-        <mapping class="jo4j_cars.model.Engine"/>
-        <mapping class="jo4j_cars.model.Car"/>
-        <mapping class="jo4j_cars.model.Mark"/>
-        <mapping class="jo4j_cars.model.BodyCar"/>
-        <mapping class="jo4j_cars.model.Advertisement"/>
+        <mapping class="cars.model.User"/>
+        <mapping class="cars.model.Engine"/>
+        <mapping class="cars.model.Car"/>
+        <mapping class="cars.model.Mark"/>
+        <mapping class="cars.model.BodyCar"/>
+        <mapping class="cars.model.Advertisement"/>
     </session-factory>
 </hibernate-configuration>
