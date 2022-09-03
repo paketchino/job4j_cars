@@ -52,7 +52,7 @@
                                 <option
                                         th:each="bodyCar: ${bodyCars}"
                                         th:value="${bodyCar.id}"
-                                        th:text="${bodyCar.bodyName}">
+                                        th:text="${bodyCar.name}">
                                 </option>
                             </select>
                         </div>
@@ -72,7 +72,8 @@
                                 <option
                                         th:each="engine: ${engines}"
                                         th:value="${engine.id}"
-                                        th:text="${engine.nameEngine}">
+                                        th:text="${engine.name}">
+                                <option value="pear">${engine.name}</option>
                                 </option>
                             </select>
                         </div>

@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import java.time.LocalDateTime;
 
-public class AdsRepositoryTest {
+    public class AdsRepositoryTest {
 
     public SessionFactory sf() {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()

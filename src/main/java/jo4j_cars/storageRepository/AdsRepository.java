@@ -10,6 +10,7 @@ import net.jcip.annotations.ThreadSafe;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,7 @@ public class AdsRepository implements AdsRepositoryInterface, DefaultMethod {
     }
 
     @Override
+    @Transactional
     public List<Advertisement> findAll() {
         return tx(session ->
                 session.createQuery("select distinct u from Advertisement u join fetch u.user")

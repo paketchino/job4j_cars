@@ -52,4 +52,9 @@ public class UserService implements UserServiceInterface {
     public Optional<User> findLoginAndPassword(String login, String password) {
         return userRepository.findLoginAndPassword(login, password);
     }
+
+    @Override
+    public List<User> users() {
+        return userRepository.usersForAdmin();
+    }
 }

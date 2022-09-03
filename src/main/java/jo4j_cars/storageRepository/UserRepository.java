@@ -93,4 +93,9 @@ public class UserRepository implements UserRepositoryInterface, DefaultMethod {
                 .setParameter("uPassword", password)
                 .uniqueResultOptional(), sessionFactory);
     }
+
+    @Override
+    public List<User> usersForAdmin() {
+        return tx(session -> session.createQuery("from User").list(), sessionFactory);
+    }
 }

@@ -22,6 +22,6 @@ public class BodyCar implements Serializable {
 
     @NonNull
     @JoinColumn(name = "carcase")
-    private String bodyName;
+    private String name;
 
 }

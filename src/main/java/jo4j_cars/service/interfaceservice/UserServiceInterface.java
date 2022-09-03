@@ -22,4 +22,5 @@ public interface UserServiceInterface {
 
     Optional<User> findLoginAndPassword(String login, String password);
 
+    List<User> users();
 }

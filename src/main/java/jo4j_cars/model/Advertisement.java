@@ -26,7 +26,7 @@ public class Advertisement implements Serializable {
     private String header;
 
     @NonNull
-    @JoinColumn(name = "desciption_ad")
+    @JoinColumn(name = "description_ad")
     private String description;
 
     @NonNull

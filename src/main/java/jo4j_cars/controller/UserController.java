@@ -30,6 +30,13 @@ public class UserController {
         return "addUser";
     }
 
+    @GetMapping("/users")
+    public String usersForAdmin(HttpSession session, Model model) {
+        FindUser.findUser(model, session);
+        model.addAttribute("users", userService.users());
+        return "users";
+    }
+
     @PostMapping("/createUser")
     public String createUser(@ModelAttribute User user, Model model) {
         Optional regAcc = userService.addUser(user);
