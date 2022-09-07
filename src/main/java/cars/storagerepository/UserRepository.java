@@ -103,4 +103,10 @@ public class UserRepository implements UserRepositoryInterface, DefaultMethod {
     public List<User> usersForAdmin() {
         return tx(session -> session.createQuery("from User").list(), sessionFactory);
     }
+
+    @Override
+    public boolean deleteForTest() {
+        return tx(session ->
+                session.createQuery("delete User cascade").executeUpdate() > 0, sessionFactory);
+    }
 }

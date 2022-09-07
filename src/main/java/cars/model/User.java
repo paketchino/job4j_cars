@@ -34,7 +34,7 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<Car> usersCar;
 
     public User(int id, @NonNull String nameOne,

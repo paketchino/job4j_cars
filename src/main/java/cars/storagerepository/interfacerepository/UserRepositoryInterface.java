@@ -25,4 +25,6 @@ public interface UserRepositoryInterface {
     Optional<User> findLoginAndPassword(String login, String password);
 
     List<User> usersForAdmin();
+
+    boolean deleteForTest();
 }
