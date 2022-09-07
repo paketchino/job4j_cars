@@ -94,12 +94,80 @@ public class AdsController {
                 .body(new ByteArrayResource(advertisement.get().getPhoto()));
     }
 
-    @GetMapping(name = "/advertisement/{advertisementId}")
-    public String ads(Model model, HttpSession session,
+    @GetMapping("/advertisement/{advertisementId}")
+    public String advertisement(Model model, HttpSession session,
                       @PathVariable("advertisementId") int id) {
-        model.addAttribute("advertisementById", adsService.findByIdAds(id).get());
         FindUser.findUser(model, session);
+        model.addAttribute("advertisementById", adsService.findByIdAds(id).get());
         return "advertisement";
     }
 
+    @GetMapping("/deleteAdvertisement/{advertisementId}")
+    public String deleteAdvertisement(Model model, HttpSession session, @PathVariable("advertisementId") int id) {
+        FindUser.findUser(model, session);
+        model.addAttribute("advertisement", adsService.findByIdAds(id));
+        return "deleteAdvertisement";
+    }
+
+    @PostMapping("/deleteAdvertisement/deleteAdvertisement")
+    public String removeAds(@ModelAttribute Advertisement advertisement) {
+        adsService.deleteAds(advertisement);
+        return "redirect:/index";
+    }
+
+    @GetMapping("/updateAdvertisement/{advertisementId}")
+    public String updateAdvertisement(Model model, HttpSession session,
+                            @PathVariable("advertisementId") int id) {
+        FindUser.findUser(model, session);
+        model.addAttribute("bodyCars", adsService.findALLBodyCar());
+        model.addAttribute("marks", adsService.findAllMarkCar());
+        model.addAttribute("engines", adsService.findAllEngine());
+        model.addAttribute("advertisement", adsService.findByIdAds(id).get());
+        return "updateAdvertisement";
+    }
+
+    @PostMapping(name = "/updateAds/{advertisementId}")
+    public String changeAds(@ModelAttribute Advertisement advertisement,
+                            @RequestParam (name = "engineId") int engineId,
+                            @RequestParam (name = "markId") int markId,
+                            @RequestParam (name = "bodyId") int bodyId,
+                            @RequestParam("file") MultipartFile file)
+            throws IOException {
+        Set<BodyCar> bodyCars = new HashSet<>();
+        List<BodyCar> bodyCarsList = carService.findBodyCarById(bodyId);
+        for (BodyCar bodyCar : bodyCarsList) {
+            bodyCars.add(bodyCar);
+        }
+        List<Mark> markList = carService.findMarkById(markId);
+        Set<Mark> marks = new HashSet<>();
+        for (Mark mark : markList) {
+            marks.add(mark);
+        }
+        Set<Engine> engines = new HashSet<>();
+        List<Engine> engineList = carService.findEngineById(engineId);
+        for (Engine engine : engineList) {
+            engines.add(engine);
+        }
+
+        advertisement.setPhoto(file.getBytes());
+        advertisement.setCreated(LocalDateTime.now().withNano(0));
+        advertisement.setBodyCarSet(bodyCars);
+        advertisement.setMarkSet(marks);
+        advertisement.setEnginesSet(engines);
+        adsService.updateAds(advertisement);
+        return "redirect:/updateAds";
+    }
+
+    @GetMapping("/updateAdsStatus/{advertisementId}")
+    public String updateAdsStatus(Model model, HttpSession session, @PathVariable("advertisementId") int id) {
+        FindUser.findUser(model, session);
+        model.addAttribute("advertisement", adsService.findByIdAds(id));
+        return "updateAdsStatus";
+    }
+
+    @PostMapping("/updateAdsStatus/updateAdsStatus")
+    public String changeAdsStatusForTrue(@ModelAttribute Advertisement advertisement) {
+        adsService.updateAdsStatus(advertisement);
+        return "redirect:/updateAdsStatus";
+    }
 }

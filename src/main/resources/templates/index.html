@@ -66,22 +66,22 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="asdversiment: ${advertisements}">
+        <tr th:each="advertisement: ${advertisements}">
             <td>
-                <a class="dark" th:href="@{|/advertisements/${asdversiment.id}|}"
-                   th:text="${asdversiment.header}">
+                <a class="dark" th:href="@{|/advertisement/${advertisement.id}|}"
+                   th:text="${advertisement.header}">
                 </a>
             </td>
             <td>
-                <img th:width="200" th:high="200" th:src="@{|/photoAds/${asdversiment.id}|}">
+                <img th:width="200" th:high="200" th:src="@{|/photoAds/${advertisement.id}|}">
             </td>
-            <td th:text="${asdversiment.created}"></td>
-            <td th:text="${asdversiment.user.nameOne}"> </td>
+            <td th:text="${advertisement.created}"></td>
+            <td th:text="${advertisement.user.nameOne}"> </td>
             <td>
-                <span th:if="${!asdversiment.isCell}">
+                <span th:if="${!advertisement.isCell}">
                     <span class="badge badge-warning">Не продано</span>
                 </span>
-                <span th:if="${asdversiment.isCell}">
+                <span th:if="${advertisement.isCell}">
                     <span class="badge badge-success">Продано</span>
                 </span>
             </td>
