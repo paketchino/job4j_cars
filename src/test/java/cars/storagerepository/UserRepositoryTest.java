@@ -43,9 +43,9 @@ public class UserRepositoryTest {
     public void whenUpdateUserLoginThenReturnUpdatesLoginsUser() {
         UserRepository userRepository = new UserRepository(sf());
         String login = "paketchibo" + System.nanoTime();
-        User user = new User(30,"Serhet", "Gavrilov", login, "12345");
+        User user = new User(30, "Serhet", "Gavrilov", login, "12345");
         String updateLog = "fdgdddfgcv" + System.nanoTime();
-        User updateLogin = new User(user.getId(),  "Serhet", "Gavrilov", updateLog, "12345");
+        User updateLogin = new User(user.getId(), "Serhet", "Gavrilov", updateLog, "12345");
         userRepository.addUser(user);
         User findById = userRepository.findByIdUser(user.getId()).get();
         assertEquals(findById, user);
