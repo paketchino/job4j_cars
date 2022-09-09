@@ -37,6 +37,15 @@ public class User implements Serializable {
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<Car> usersCar;
 
+    public User(@NonNull String nameOne,
+                @NonNull String nameTwo,
+                @NonNull String login, @NonNull String password) {
+        this.nameOne = nameOne;
+        this.nameTwo = nameTwo;
+        this.login = login;
+        this.password = password;
+    }
+
     public User(int id, @NonNull String nameOne,
                 @NonNull String nameTwo,
                 @NonNull String login,

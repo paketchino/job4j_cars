@@ -48,6 +48,7 @@ public class UserRepository implements UserRepositoryInterface, DefaultMethod {
 
     @Override
     public List<Car> findAllCarByUserId(User user) {
+        LOGGER.info("Начало поиска юзера по id");
         return tx(session ->
                 session.createQuery("select distinct u from "
                                 + "User u join fetch u.usersCar where u.id =: uId")
@@ -65,6 +66,7 @@ public class UserRepository implements UserRepositoryInterface, DefaultMethod {
 
     @Override
     public boolean updateUserFirstNameAndSecondName(User user) {
+        LOGGER.info("Начало поиска юзера по имени и фамилии");
         return tx(session ->
                 session.createQuery("update User as u set u.nameOne =:uNameFirst, "
                                 + "u.nameTwo =:uNameSecond where u.id =:uId")
@@ -76,6 +78,7 @@ public class UserRepository implements UserRepositoryInterface, DefaultMethod {
 
     @Override
     public boolean updatePasswordUser(User user) {
+        LOGGER.info("Обновление пароля");
         return tx(session ->
                 session.createQuery("update User u set u.password =:uPassword where u.id =:uId")
                 .setParameter("uPassword", user.getPassword())
@@ -84,6 +87,7 @@ public class UserRepository implements UserRepositoryInterface, DefaultMethod {
 
     @Override
     public boolean updateLogin(User user) {
+        LOGGER.info("Обновление по логину");
         return tx(session -> session.
                 createQuery("update User u set u.login =:uLogin where u.id =:uId")
                 .setParameter("uLogin", user.getLogin())
@@ -92,6 +96,7 @@ public class UserRepository implements UserRepositoryInterface, DefaultMethod {
 
     @Override
     public Optional<User> findLoginAndPassword(String login, String password) {
+        LOGGER.info("Поиск по id и password");
         return tx(session ->
                 session.createQuery("from User u where u.login =:uLogin and u.password= :uPassword")
                 .setParameter("uLogin", login)

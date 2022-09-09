@@ -103,7 +103,8 @@ public class AdsController {
     }
 
     @GetMapping("/deleteAdvertisement/{advertisementId}")
-    public String deleteAdvertisement(Model model, HttpSession session, @PathVariable("advertisementId") int id) {
+    public String deleteAdvertisement(Model model, HttpSession session,
+                                      @PathVariable("advertisementId") int id) {
         FindUser.findUser(model, session);
         model.addAttribute("advertisement", adsService.findByIdAds(id));
         return "deleteAdvertisement";
@@ -159,7 +160,8 @@ public class AdsController {
     }
 
     @GetMapping("/updateAdsStatus/{advertisementId}")
-    public String updateAdsStatus(Model model, HttpSession session, @PathVariable("advertisementId") int id) {
+    public String updateAdsStatus(Model model, HttpSession session,
+                                  @PathVariable("advertisementId") int id) {
         FindUser.findUser(model, session);
         model.addAttribute("advertisement", adsService.findByIdAds(id));
         return "updateAdsStatus";

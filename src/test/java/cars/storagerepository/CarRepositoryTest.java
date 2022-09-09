@@ -11,6 +11,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
+
 public class CarRepositoryTest {
 
     public SessionFactory sf() {
@@ -21,25 +23,31 @@ public class CarRepositoryTest {
 
     @Test
     public void whenAddEngineThenReturnEngineName() {
-        Engine engine = new Engine("2.5L");
         CarRepository carRepository = new CarRepository(sf());
+        String stringEngine = "2.5L" + System.nanoTime();
+        Engine engine = new Engine(stringEngine);
         Assert.assertEquals(carRepository.addEngine(engine).get(), engine);
     }
 
     @Test
     public void whenAddMarkThenMarkName() {
-        Mark mark = new Mark("X4");
+        String stringMark = "X4" + System.nanoTime();
+        Mark mark = new Mark(stringMark);
         CarRepository carRepository = new CarRepository(sf());
         carRepository.addMark(mark);
-        Assert.assertEquals(mark, carRepository.findAllMark().get(0));
+        Assert.assertEquals(List.of(mark), carRepository.findMarkById(mark.getId()));
     }
 
     @Test
     public void whenAddCarAddTypeBodyMarkEngineBodyCarThenReturnFullCar() {
-        BodyCar bodyCar = new BodyCar("ХэтчБэк");
-        Engine engine = new Engine("Мощный");
-        Mark mark = new Mark("X5");
-        Car car = new Car("BWM", mark, engine, bodyCar);
+        String hatchBack = "ХэтчБэк" + System.nanoTime();
+        BodyCar bodyCar = new BodyCar(hatchBack);
+        String engineSt = "Мощный" + System.nanoTime();
+        Engine engine = new Engine(engineSt);
+        String markX5 = "X5" + System.nanoTime();
+        Mark mark = new Mark(markX5);
+        String carString = "BMW" + System.nanoTime();
+        Car car = new Car(carString, mark, engine, bodyCar);
 
         CarRepository carRepository = new CarRepository(sf());
         carRepository.addEngine(engine);
@@ -47,7 +55,6 @@ public class CarRepositoryTest {
         carRepository.addMark(mark);
         carRepository.addCar(car);
 
-        Assert.assertEquals(carRepository.findAllCarForTest().get(0), car);
         Assert.assertEquals(carRepository.findById(car.getId()).get(), car);
     }
 

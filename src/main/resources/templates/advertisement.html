@@ -71,6 +71,8 @@
                     <td th:text="${advertisement.bodyCar.name}"> </td>
                     <td th:text="${advertisement.mark.name}"> </td>
                     <td th:text="${advertisement.engine.name}"> </td>
+                    <td th:text="${advertisement.created}"> </td>
+                    <td th:text="${advertisement.user.nameOne}"> </td>
                     <a th:href="@{|/deleteAdvertisement/${advertisement.id}|}">
                         <button type="submit" name="submit_button" value="main_button">
                             Удалить</button>

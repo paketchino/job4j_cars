@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
+@NamedEntityGraph
 @Entity
 @RequiredArgsConstructor
 @Table(name = "advertisements")
@@ -16,7 +17,6 @@ import java.util.*;
 @Setter
 public class Advertisement implements Serializable {
 
-    @NonNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -84,6 +84,23 @@ public class Advertisement implements Serializable {
             @JoinColumn(name = "bodyCar_id", nullable = false, insertable = false)
     })
     private Set<BodyCar> bodyCarSet = new HashSet<>();
+
+    public Advertisement(int id, String header,
+                         String description, boolean isCell,
+                         byte[] photo, LocalDateTime created,
+                         User user, BodyCar bodyCar,
+                         Mark mark, Engine engine) {
+        this.id = id;
+        this.header = header;
+        this.description = description;
+        this.isCell = isCell;
+        this.photo = photo;
+        this.created = created;
+        this.user = user;
+        this.bodyCar = bodyCar;
+        this.mark = mark;
+        this.engine = engine;
+    }
 
     @Override
     public boolean equals(Object o) {
