@@ -21,7 +21,7 @@ public class Car implements Serializable {
     private int id;
 
     @NonNull
-    @Column(name = "car_name")
+    @Column(unique = true, nullable = false)
     private String name;
 
     @NonNull

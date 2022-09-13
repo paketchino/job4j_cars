@@ -48,8 +48,8 @@ public class AdsService implements AdsServiceInterface {
     }
 
     @Override
-    public boolean deleteAds(Advertisement advertisement) {
-        return adsRepository.deleteAds(advertisement);
+    public boolean deleteAds(int id) {
+        return adsRepository.deleteAds(id);
     }
 
     @Override

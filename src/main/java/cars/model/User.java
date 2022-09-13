@@ -10,6 +10,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
 public class User implements Serializable {
@@ -19,34 +20,26 @@ public class User implements Serializable {
     private int id;
 
     @NonNull
-    @Column(name = "author_first_name")
+    @Column(name = "first_name", nullable = false)
     private String nameOne;
 
     @NonNull
-    @Column(name = "author_second_name")
+    @Column(name = "second_name", nullable = false)
     private String nameTwo;
 
     @NonNull
-    @Column(name = "login")
+    @Column(name = "login", nullable = false, unique = true)
     private String login;
 
     @NonNull
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<Car> usersCar;
 
-    public User(@NonNull String nameOne,
-                @NonNull String nameTwo,
-                @NonNull String login, @NonNull String password) {
-        this.nameOne = nameOne;
-        this.nameTwo = nameTwo;
-        this.login = login;
-        this.password = password;
-    }
-
-    public User(int id, @NonNull String nameOne,
+    public User(int id,
+                @NonNull String nameOne,
                 @NonNull String nameTwo,
                 @NonNull String login,
                 @NonNull String password) {
@@ -55,19 +48,6 @@ public class User implements Serializable {
         this.nameTwo = nameTwo;
         this.login = login;
         this.password = password;
-    }
-
-    public User(int id,
-                @NonNull String nameOne,
-                @NonNull String nameTwo,
-                @NonNull String login,
-                @NonNull String password, Set<Car> usersCar) {
-        this.id = id;
-        this.nameOne = nameOne;
-        this.nameTwo = nameTwo;
-        this.login = login;
-        this.password = password;
-        this.usersCar = usersCar;
     }
 
     @Override
@@ -92,10 +72,10 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", nameOne='"
-                + nameOne + '\'' + ", nameTwo='"
-                + nameTwo + '\'' + ", login='" + login
-                + '\'' + ", password='" + password
-                + '\'' + '}';
+        return "User{" + "id=" + id + ", nameOne='" + nameOne + '\''
+                + ", nameTwo='" + nameTwo + '\''
+                + ", login='" + login + '\''
+                + ", password='" + password + '\''
+                + '}';
     }
 }

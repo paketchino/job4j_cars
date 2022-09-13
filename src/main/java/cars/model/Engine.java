@@ -20,7 +20,7 @@ public class Engine implements Serializable {
     private int id;
 
     @NonNull
-    @JoinColumn(name = "engine_name")
+    @Column(unique = true, nullable = false, updatable = false)
     private String name;
 
 }

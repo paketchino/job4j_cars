@@ -209,7 +209,7 @@ public class AdsRepositoryTest {
         adsRepository.addAds(ads);
         Assert.assertEquals(adsRepository.findByIdAds(ads.getId()).get(), ads);
 
-        Assert.assertTrue(adsRepository.deleteAds(ads));
+        Assert.assertTrue(adsRepository.deleteAds(ads.getId()));
         Assert.assertEquals(adsRepository.findByIdAds(ads.getId()), Optional.empty());
     }
 }

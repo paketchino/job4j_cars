@@ -40,8 +40,7 @@ public class AdsController {
 
     @GetMapping("/addAds")
     public String addAds(Model model, HttpSession session,
-                         @RequestParam (name = "fail", required = false)
-                         Boolean fail) {
+                         @RequestParam (name = "fail", required = false) Boolean fail) {
         FindUser.findUser(model, session);
         model.addAttribute("fail", fail != null);
         model.addAttribute("bodyCars", adsService.findALLBodyCar());
@@ -59,21 +58,17 @@ public class AdsController {
                             @RequestParam("file") MultipartFile file) throws IOException {
         advertisement.setUser((User) session.getAttribute("user"));
         Set<BodyCar> bodyCars = new HashSet<>();
-        List<BodyCar> bodyCarsList = carService.findBodyCarById(bodyId);
-        for (BodyCar bodyCar : bodyCarsList) {
+        for (BodyCar bodyCar : carService.findBodyCarById(bodyId)) {
             bodyCars.add(bodyCar);
         }
-        List<Mark> markList = carService.findMarkById(markId);
         Set<Mark> marks = new HashSet<>();
-        for (Mark mark : markList) {
+        for (Mark mark : carService.findMarkById(markId)) {
             marks.add(mark);
         }
         Set<Engine> engines = new HashSet<>();
-        List<Engine> engineList = carService.findEngineById(engineId);
-        for (Engine engine : engineList) {
+        for (Engine engine : carService.findEngineById(engineId)) {
             engines.add(engine);
         }
-
         advertisement.setPhoto(file.getBytes());
         advertisement.setCreated(LocalDateTime.now().withNano(0));
         advertisement.setBodyCarSet(bodyCars);
@@ -112,7 +107,7 @@ public class AdsController {
 
     @PostMapping("/deleteAdvertisement/deleteAdvertisement")
     public String removeAds(@ModelAttribute Advertisement advertisement) {
-        adsService.deleteAds(advertisement);
+        adsService.deleteAds(advertisement.getId());
         return "redirect:/index";
     }
 
@@ -149,7 +144,6 @@ public class AdsController {
         for (Engine engine : engineList) {
             engines.add(engine);
         }
-
         advertisement.setPhoto(file.getBytes());
         advertisement.setCreated(LocalDateTime.now().withNano(0));
         advertisement.setBodyCarSet(bodyCars);

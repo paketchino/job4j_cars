@@ -39,6 +39,15 @@ public class CarRepositoryTest {
     }
 
     @Test
+    public void whenAddCarcaseThenCarcaseReturn() {
+        String hatchBack = "ХэтчБэк" + System.nanoTime();
+        BodyCar bodyCar = new BodyCar(hatchBack);
+        CarRepository carRepository = new CarRepository(sf());
+        carRepository.addBodyCar(bodyCar);
+        Assert.assertEquals(List.of(bodyCar), carRepository.findBodyCarById(bodyCar.getId()));
+    }
+
+    @Test
     public void whenAddCarAddTypeBodyMarkEngineBodyCarThenReturnFullCar() {
         String hatchBack = "ХэтчБэк" + System.nanoTime();
         BodyCar bodyCar = new BodyCar(hatchBack);

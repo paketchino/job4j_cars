@@ -22,19 +22,19 @@ public class Advertisement implements Serializable {
     private int id;
 
     @NonNull
-    @JoinColumn(name = "header")
+    @Column(nullable = false)
     private String header;
 
     @NonNull
-    @JoinColumn(name = "description_ad")
+    @Column(nullable = false)
     private String description;
 
     @NonNull
-    @JoinColumn(name = "is_cell")
+    @Column(nullable = false)
     private boolean isCell;
 
     @NonNull
-    @JoinColumn(name = "photo_car")
+    @Column
     private byte[] photo;
 
     @NonNull
@@ -61,35 +61,22 @@ public class Advertisement implements Serializable {
     @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
     private Engine engine;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "advertisements_engines", joinColumns = {
-            @JoinColumn(name = "advertisement_id", nullable = false, updatable = false)
-    }, inverseJoinColumns = {
-            @JoinColumn(name = "engine_id", nullable = false, insertable = false)
-    })
-    private Set<Engine> enginesSet = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Set<Engine> enginesSet = new HashSet();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "advertisements_marks", joinColumns = {
-            @JoinColumn(name = "advertisement_id", nullable = false, updatable = false)
-    }, inverseJoinColumns = {
-            @JoinColumn(name = "mark_id", nullable = false, insertable = false)
-    })
-    private Set<Mark> markSet = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Set<Mark> markSet = new HashSet();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "advertisements_bodyCars", joinColumns = {
-            @JoinColumn(name = "advertisement_id", nullable = false, updatable = false)
-    }, inverseJoinColumns = {
-            @JoinColumn(name = "bodyCar_id", nullable = false, insertable = false)
-    })
-    private Set<BodyCar> bodyCarSet = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Set<BodyCar> bodyCarSet = new HashSet();
 
-    public Advertisement(int id, String header,
-                         String description, boolean isCell,
-                         byte[] photo, LocalDateTime created,
-                         User user, BodyCar bodyCar,
-                         Mark mark, Engine engine) {
+    public Advertisement(int id, @NonNull String header,
+                         @NonNull String description,
+                         @NonNull boolean isCell,
+                         @NonNull byte[] photo,
+                         @NonNull LocalDateTime created,
+                         @NonNull User user, @NonNull BodyCar bodyCar,
+                         @NonNull Mark mark, @NonNull Engine engine) {
         this.id = id;
         this.header = header;
         this.description = description;
@@ -139,7 +126,8 @@ public class Advertisement implements Serializable {
                 + ", isCell=" + isCell
                 + ", photo=" + Arrays.toString(photo) + ", created="
                 + created + ", user="
-                + user + ", bodyCar=" + bodyCar + ", mark=" + mark + ", engine="
+                + user + ", bodyCar=" + bodyCar
+                + ", mark=" + mark + ", engine="
                 + engine + '}';
     }
 }

@@ -21,7 +21,7 @@ public class BodyCar implements Serializable {
     private int id;
 
     @NonNull
-    @JoinColumn(name = "carcase")
+    @Column(unique = true, nullable = false, updatable = false)
     private String name;
 
 }

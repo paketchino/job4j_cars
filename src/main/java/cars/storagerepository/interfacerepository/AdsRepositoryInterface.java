@@ -20,7 +20,7 @@ public interface AdsRepositoryInterface {
 
     boolean updateAdsStatus(Advertisement advertisement);
 
-    boolean deleteAds(Advertisement advertisement);
+    boolean deleteAds(int id);
 
     List<Advertisement> findAllAdsWhereStatusTrue();
 

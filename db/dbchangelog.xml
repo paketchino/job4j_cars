@@ -8,8 +8,8 @@
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
-    <include file="scripts/update_0001.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/update_0002.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/update_0003.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/update_0004.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/update_11010.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/update_11011.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/update_11012.sql" relativeToChangelogFile="true"/>
+<!--    <include file="scripts/update_00013.sql" relativeToChangelogFile="true"/>-->
 </databaseChangeLog>

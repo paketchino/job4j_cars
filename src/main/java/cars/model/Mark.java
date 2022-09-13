@@ -20,7 +20,7 @@ public class Mark implements Serializable {
     private int id;
 
     @NonNull
-    @JoinColumn(name = "mark_name")
+    @Column(unique = true, nullable = false, updatable = false)
     private String name;
 
     @Override

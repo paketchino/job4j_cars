@@ -22,7 +22,7 @@ public class UserRepositoryTest {
 
     @Test
     public void whenAddUserThenUser() {
-        String login = "ivanov233" + System.nanoTime();
+        String login = "ivanov233 " + System.nanoTime();
         User user = new User("Ivan", "Ivanov", login, "12345");
         UserRepository userRepository = new UserRepository(sf());
         userRepository.addUser(user);
@@ -40,21 +40,6 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void whenUpdateUserLoginThenReturnUpdatesLoginsUser() {
-        UserRepository userRepository = new UserRepository(sf());
-        String login = "paketchibo" + System.nanoTime();
-        User user = new User(30, "Serhet", "Gavrilov", login, "12345");
-        String updateLog = "fdgdddfgcv" + System.nanoTime();
-        User updateLogin = new User(user.getId(), "Serhet", "Gavrilov", updateLog, "12345");
-        userRepository.addUser(user);
-        User findById = userRepository.findByIdUser(user.getId()).get();
-        assertEquals(findById, user);
-        assertTrue(userRepository.updateLogin(updateLogin));
-        assertEquals(updateLogin.getLogin(),
-                userRepository.findByIdUser(updateLogin.getId()).get().getLogin());
-    }
-
-    @Test
     public void whenUpdateUserFirstNameAndSecondNameThenReturnUpdatesDateFNAndSN() {
         UserRepository userRepository = new UserRepository(sf());
         String login = "fdgdfgcv" + System.nanoTime();
@@ -67,9 +52,11 @@ public class UserRepositoryTest {
         assertEquals(findById.get().getNameTwo(), user.getNameTwo());
         userRepository.updateUserFirstNameAndSecondName(updateName);
         assertEquals(userRepository.
-                findByIdUser(updateName.getId()).get().getNameOne(), updateName.getNameOne());
+                findByIdUser(updateName.getId()).get().getNameOne(),
+                updateName.getNameOne());
         assertEquals(userRepository.
-                findByIdUser(updateName.getId()).get().getNameTwo(), updateName.getNameTwo());
+                findByIdUser(updateName.getId()).get().getNameTwo(),
+                updateName.getNameTwo());
     }
 
     @Test

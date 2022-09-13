@@ -88,10 +88,11 @@ public class AdsRepository implements AdsRepositoryInterface, DefaultMethod {
     }
 
     @Override
-    public boolean deleteAds(Advertisement advertisement) {
+    public boolean deleteAds(int id) {
         LOGGER.info("Начато удаление Advertisement");
-        return tx(session -> session.createQuery("delete from Advertisement as a where a.id =:aId")
-                .setParameter("aId", advertisement.getId())
+        return tx(session -> session
+                .createQuery("delete from cars.model.Advertisement a where a.id =:aId")
+                .setParameter("aId", id)
                 .executeUpdate() > 0, sessionFactory);
     }
 
