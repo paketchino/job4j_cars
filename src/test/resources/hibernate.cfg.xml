@@ -23,11 +23,11 @@
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
 
-        <mapping class="cars.model.User"/>
-        <mapping class="cars.model.Engine"/>
-        <mapping class="cars.model.Car"/>
-        <mapping class="cars.model.Mark"/>
-        <mapping class="cars.model.BodyCar"/>
-        <mapping class="cars.model.Advertisement"/>
+        <mapping class="ru.joj4j.cars.model.User"/>
+        <mapping class="ru.joj4j.cars.model.Engine"/>
+        <mapping class="ru.joj4j.cars.model.Car"/>
+        <mapping class="ru.joj4j.cars.model.Mark"/>
+        <mapping class="ru.joj4j.cars.model.BodyCar"/>
+        <mapping class="ru.joj4j.cars.model.Advertisement"/>
     </session-factory>
 </hibernate-configuration>

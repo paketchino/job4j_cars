@@ -1,11 +1,12 @@
 package cars.storagerepository;
 
-import cars.model.User;
+import ru.joj4j.cars.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.junit.Test;
+import ru.joj4j.cars.storagerepository.UserRepository;
 
 import java.util.Optional;
 

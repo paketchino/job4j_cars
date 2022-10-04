@@ -1,15 +1,16 @@
 package cars.storagerepository;
 
-import cars.model.BodyCar;
-import cars.model.Car;
-import cars.model.Engine;
-import cars.model.Mark;
+import ru.joj4j.cars.model.BodyCar;
+import ru.joj4j.cars.model.Car;
+import ru.joj4j.cars.model.Engine;
+import ru.joj4j.cars.model.Mark;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.junit.Assert;
 import org.junit.Test;
+import ru.joj4j.cars.storagerepository.CarRepository;
 
 import java.util.List;
 

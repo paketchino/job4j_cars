@@ -1,12 +1,15 @@
 package cars.storagerepository;
 
-import cars.model.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.junit.Assert;
 import org.junit.Test;
+import ru.joj4j.cars.model.*;
+import ru.joj4j.cars.storagerepository.AdsRepository;
+import ru.joj4j.cars.storagerepository.CarRepository;
+import ru.joj4j.cars.storagerepository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
