@@ -61,15 +61,6 @@ public class Advertisement implements Serializable {
     @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
     private Engine engine;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Set<Engine> enginesSet = new HashSet();
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Set<Mark> markSet = new HashSet();
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Set<BodyCar> bodyCarSet = new HashSet();
-
     public Advertisement(int id, @NonNull String header,
                          @NonNull String description,
                          boolean isCell,

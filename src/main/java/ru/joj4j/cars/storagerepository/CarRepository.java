@@ -121,27 +121,26 @@ public class CarRepository implements CarRepositoryInterface, DefaultMethod {
     }
 
     @Override
-    public List<Mark> findMarkById(int id) {
+    public Optional<Mark> findMarkById(int id) {
         LOGGER.info("Начат поиск mark по id");
         return tx(session -> session.createQuery("from Mark m where m.id =: mId")
                 .setParameter("mId", id)
-                .list(), sessionFactory);
+                .uniqueResultOptional(), sessionFactory);
     }
 
     @Override
-    public List<Engine> findEngineById(int id) {
+    public Optional<Engine> findEngineById(int id) {
         LOGGER.info("Начато поиск engine id");
         return tx(session -> session.createQuery("from Engine e where e.id =: eId")
                 .setParameter("eId", id)
-                .list(), sessionFactory);
+                .uniqueResultOptional(), sessionFactory);
     }
 
     @Override
-    public List<BodyCar> findBodyCarById(int id) {
+    public Optional<BodyCar> findBodyCarById(int id) {
         LOGGER.info("Начат поиск каркаса по id");
         return tx(session -> session.createQuery("from BodyCar bc where bc.id =: bcId")
-                .setParameter("bcId", id)
-                .list(), sessionFactory);
+                .setParameter("bcId", id).uniqueResultOptional(), sessionFactory);
     }
 
 }

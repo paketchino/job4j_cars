@@ -41,21 +41,3 @@ create table if not exists cars (
     engine_id int not null references engines(id),
     bodyCar_id int not null references bodyCars(id)
 );
-
-create table if not exists advertisements_bodyCars
-(
-    advertisement_id int not null references advertisements(id),
-    bodyCar_id int not null references bodyCars(id)
-);
-
-create table if not exists advertisements_engines
-(
-    advertisement_id int not null references advertisements(id),
-    engine_id int not null references engines(id)
-);
-
-create table if not exists advertisements_marks
-(
-    advertisement_id int not null references advertisements(id),
-    mark_id int not null references marks(id)
-);

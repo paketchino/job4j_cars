@@ -67,7 +67,7 @@ public class AdsRepository implements AdsRepositoryInterface, DefaultMethod {
                 .createQuery("update Advertisement as a "
                         + "set a.header =:aHead, a.description =:aDesc, "
                         + "a.photo =:aPhoto, a.mark.id =:aNewMark, "
-                        + "a.engine.id =:aEngine, a.bodyCar.id =:aBodyCar "
+                        + "a.engine.id =:aEngine, a.bodyCar.id =:aBodyCar, a.isCell =:aCell "
                         + "where a.id = :aId")
                 .setParameter("aHead", advertisement.getHeader())
                 .setParameter("aDesc", advertisement.getDescription())
@@ -75,6 +75,7 @@ public class AdsRepository implements AdsRepositoryInterface, DefaultMethod {
                 .setParameter("aNewMark", advertisement.getMark().getId())
                 .setParameter("aEngine", advertisement.getEngine().getId())
                 .setParameter("aBodyCar", advertisement.getBodyCar().getId())
+                .setParameter("aCell", false)
                 .setParameter("aId", advertisement.getId())
                 .executeUpdate() > 0, sessionFactory);
     }
@@ -83,8 +84,9 @@ public class AdsRepository implements AdsRepositoryInterface, DefaultMethod {
     public boolean updateAdsStatus(Advertisement advertisement) {
         LOGGER.info("Начато обновление статуса Advertisement");
         return tx(session -> session
-                .createQuery("update Advertisement a set a.isCell =:aCell")
+                .createQuery("update Advertisement a set a.isCell =:aCell where a.id =: aId")
                 .setParameter("aCell", true)
+                .setParameter("aId", advertisement.getId())
                 .executeUpdate() > 0, sessionFactory);
     }
 

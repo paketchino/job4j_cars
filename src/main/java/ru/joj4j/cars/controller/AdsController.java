@@ -9,17 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.joj4j.cars.model.*;
+import ru.joj4j.cars.model.Advertisement;
+import ru.joj4j.cars.model.User;
 import ru.joj4j.cars.service.AdsService;
 import ru.joj4j.cars.service.CarService;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Controller
 public class AdsController {
@@ -57,23 +55,11 @@ public class AdsController {
                             @RequestParam (name = "bodyId") int bodyId,
                             @RequestParam("file") MultipartFile file) throws IOException {
         advertisement.setUser((User) session.getAttribute("user"));
-        Set<BodyCar> bodyCars = new HashSet<>();
-        for (BodyCar bodyCar : carService.findBodyCarById(bodyId)) {
-            bodyCars.add(bodyCar);
-        }
-        Set<Mark> marks = new HashSet<>();
-        for (Mark mark : carService.findMarkById(markId)) {
-            marks.add(mark);
-        }
-        Set<Engine> engines = new HashSet<>();
-        for (Engine engine : carService.findEngineById(engineId)) {
-            engines.add(engine);
-        }
         advertisement.setPhoto(file.getBytes());
         advertisement.setCreated(LocalDateTime.now().withNano(0));
-        advertisement.setBodyCarSet(bodyCars);
-        advertisement.setMarkSet(marks);
-        advertisement.setEnginesSet(engines);
+        advertisement.setBodyCar(carService.findBodyCarById(bodyId).get());
+        advertisement.setMark(carService.findMarkById(markId).get());
+        advertisement.setEngine(carService.findEngineById(engineId).get());
         adsService.addAds(advertisement);
         return "redirect:/index";
     }
@@ -122,35 +108,21 @@ public class AdsController {
         return "updateAdvertisement";
     }
 
-    @PostMapping(name = "/updateAds/{advertisementId}")
+    @PostMapping("/updateAdvertisement")
     public String changeAds(@ModelAttribute Advertisement advertisement,
                             @RequestParam (name = "engineId") int engineId,
                             @RequestParam (name = "markId") int markId,
                             @RequestParam (name = "bodyId") int bodyId,
                             @RequestParam("file") MultipartFile file)
             throws IOException {
-        Set<BodyCar> bodyCars = new HashSet<>();
-        List<BodyCar> bodyCarsList = carService.findBodyCarById(bodyId);
-        for (BodyCar bodyCar : bodyCarsList) {
-            bodyCars.add(bodyCar);
-        }
-        List<Mark> markList = carService.findMarkById(markId);
-        Set<Mark> marks = new HashSet<>();
-        for (Mark mark : markList) {
-            marks.add(mark);
-        }
-        Set<Engine> engines = new HashSet<>();
-        List<Engine> engineList = carService.findEngineById(engineId);
-        for (Engine engine : engineList) {
-            engines.add(engine);
-        }
         advertisement.setPhoto(file.getBytes());
+        advertisement.setCell(false);
         advertisement.setCreated(LocalDateTime.now().withNano(0));
-        advertisement.setBodyCarSet(bodyCars);
-        advertisement.setMarkSet(marks);
-        advertisement.setEnginesSet(engines);
+        advertisement.setBodyCar(carService.findBodyCarById(bodyId).get());
+        advertisement.setMark(carService.findMarkById(markId).get());
+        advertisement.setEngine(carService.findEngineById(engineId).get());
         adsService.updateAds(advertisement);
-        return "redirect:/updateAds";
+        return "redirect:/index";
     }
 
     @GetMapping("/updateAdsStatus/{advertisementId}")
@@ -161,9 +133,9 @@ public class AdsController {
         return "updateAdsStatus";
     }
 
-    @PostMapping("/updateAdsStatus/updateAdsStatus")
+    @PostMapping("/updateAdsStatus")
     public String changeAdsStatusForTrue(@ModelAttribute Advertisement advertisement) {
         adsService.updateAdsStatus(advertisement);
-        return "redirect:/updateAdsStatus";
+        return "redirect:/index";
     }
 }

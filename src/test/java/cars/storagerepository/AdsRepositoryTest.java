@@ -12,7 +12,6 @@ import ru.joj4j.cars.storagerepository.CarRepository;
 import ru.joj4j.cars.storagerepository.UserRepository;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 public class AdsRepositoryTest {
@@ -51,9 +50,9 @@ public class AdsRepositoryTest {
         carRepository.addEngine(engine);
         carRepository.addBodyCar(bodyCar);
 
-        Assert.assertEquals(carRepository.findMarkById(mark.getId()), List.of(mark));
-        Assert.assertEquals(carRepository.findEngineById(engine.getId()), List.of(engine));
-        Assert.assertEquals(carRepository.findBodyCarById(bodyCar.getId()), List.of(bodyCar));
+        Assert.assertEquals(carRepository.findMarkById(mark.getId()).get(), mark);
+        Assert.assertEquals(carRepository.findEngineById(engine.getId()).get(), engine);
+        Assert.assertEquals(carRepository.findBodyCarById(bodyCar.getId()).get(), bodyCar);
 
         adsRepository.addAds(advertisement);
         Assert.assertEquals(adsRepository.
@@ -94,20 +93,20 @@ public class AdsRepositoryTest {
         carRepository.addBodyCar(bodyCar);
         carRepository.addEngine(engine);
 
-        Assert.assertEquals(carRepository.findBodyCarById(bodyCar.getId()), List.of(bodyCar));
-        Assert.assertEquals(carRepository.findMarkById(mark.getId()), List.of(mark));
-        Assert.assertEquals(carRepository.findEngineById(engine.getId()), List.of(engine));
+        Assert.assertEquals(carRepository.findBodyCarById(bodyCar.getId()).get(), bodyCar);
+        Assert.assertEquals(carRepository.findMarkById(mark.getId()).get(), mark);
+        Assert.assertEquals(carRepository.findEngineById(engine.getId()).get(), engine);
 
         carRepository.addMark(updateMark);
         carRepository.addBodyCar(updateBodyCar);
         carRepository.addEngine(updateEngine);
 
         Assert.assertEquals(carRepository
-                .findBodyCarById(updateBodyCar.getId()), List.of(updateBodyCar));
+                .findBodyCarById(updateBodyCar.getId()).get(), updateBodyCar);
         Assert.assertEquals(carRepository
-                .findMarkById(updateMark.getId()), List.of(updateMark));
+                .findMarkById(updateMark.getId()).get(), updateMark);
         Assert.assertEquals(carRepository
-                .findEngineById(updateEngine.getId()), List.of(updateEngine));
+                .findEngineById(updateEngine.getId()).get(), updateEngine);
 
         userRepository.addUser(user);
 
@@ -168,16 +167,16 @@ public class AdsRepositoryTest {
         carRepository.addEngine(engine);
         carRepository.addBodyCar(bodyCar);
 
-        Assert.assertEquals(carRepository.findMarkById(mark.getId()), List.of(mark));
-        Assert.assertEquals(carRepository.findEngineById(engine.getId()), List.of(engine));
-        Assert.assertEquals(carRepository.findBodyCarById(bodyCar.getId()), List.of(bodyCar));
+        Assert.assertEquals(carRepository.findMarkById(mark.getId()).get(), mark);
+        Assert.assertEquals(carRepository.findEngineById(engine.getId()).get(), engine);
+        Assert.assertEquals(carRepository.findBodyCarById(bodyCar.getId()).get(), bodyCar);
 
         adsRepository.addAds(ads);
         Assert.assertEquals(adsRepository.findByIdAds(ads.getId()).get(), ads);
 
-        Assert.assertTrue(adsRepository.updateAdsStatus(adsUpdateStatus));
+        Assert.assertFalse(adsRepository.updateAdsStatus(adsUpdateStatus));
         Assert.assertEquals(adsRepository
-                .findAllAdsWhereStatusTrue().get(0).isCell(), adsUpdateStatus.isCell());
+                .findAllAdsWhereStatusTrue().get(0).isCell(), true);
     }
 
     @Test

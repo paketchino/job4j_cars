@@ -48,9 +48,9 @@
         <div class="card-body">
             <form th:action="@{/updateAdsStatus}" method="POST" th:object="${advertisement}">
                 <input type="hidden" name="id" th:field="*{id}"/>
-                <div class="form-group">
-                <button type="submit" class="btn btn-primary">Сохранить</button>
-                </div>
+                <a th:href="@{|confirmationUpdate|}">
+                    <button type="submit" class="btn btn-primary">Подтвердить</button>
+                </a>
             </form>
         </div>
     </div>

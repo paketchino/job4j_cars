@@ -56,17 +56,17 @@ public class CarService implements CarServiceInterface {
     }
 
     @Override
-    public List<BodyCar> findBodyCarById(int id) {
+    public Optional<BodyCar> findBodyCarById(int id) {
         return carRepository.findBodyCarById(id);
     }
 
     @Override
-    public List<Engine> findEngineById(int id) {
+    public Optional<Engine> findEngineById(int id) {
         return carRepository.findEngineById(id);
     }
 
     @Override
-    public List<Mark> findMarkById(int id) {
+    public Optional<Mark> findMarkById(int id) {
         return carRepository.findMarkById(id);
     }
 

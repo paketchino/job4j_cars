@@ -28,9 +28,9 @@ public interface CarRepositoryInterface {
 
     List<Engine> findAllEngineForTest();
 
-    List<BodyCar> findBodyCarById(int id);
+    Optional<BodyCar> findBodyCarById(int id);
 
-    List<Engine> findEngineById(int id);
+    Optional<Engine> findEngineById(int id);
 
-    List<Mark> findMarkById(int id);
+    Optional<Mark> findMarkById(int id);
 }

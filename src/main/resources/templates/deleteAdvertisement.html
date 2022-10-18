@@ -50,7 +50,7 @@
             <form th:action="@{|deleteAdvertisement|}" method="POST" th:object="${advertisement}">
                 <input type="hidden" name="id" th:field="*{id}"/>
                 <a th:href="@{|confirmationDelete|}">
-                    <button type="submit" class="btn btn-primary">Потвердить</button>
+                    <button type="submit" class="btn btn-primary">Подтвердить</button>
                 </a>
             </form>
         </div>

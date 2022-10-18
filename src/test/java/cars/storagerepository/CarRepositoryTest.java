@@ -1,18 +1,16 @@
 package cars.storagerepository;
 
-import ru.joj4j.cars.model.BodyCar;
-import ru.joj4j.cars.model.Car;
-import ru.joj4j.cars.model.Engine;
-import ru.joj4j.cars.model.Mark;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.junit.Assert;
 import org.junit.Test;
+import ru.joj4j.cars.model.BodyCar;
+import ru.joj4j.cars.model.Car;
+import ru.joj4j.cars.model.Engine;
+import ru.joj4j.cars.model.Mark;
 import ru.joj4j.cars.storagerepository.CarRepository;
-
-import java.util.List;
 
 public class CarRepositoryTest {
 
@@ -36,7 +34,7 @@ public class CarRepositoryTest {
         Mark mark = new Mark(stringMark);
         CarRepository carRepository = new CarRepository(sf());
         carRepository.addMark(mark);
-        Assert.assertEquals(List.of(mark), carRepository.findMarkById(mark.getId()));
+        Assert.assertEquals(mark, carRepository.findMarkById(mark.getId()).get());
     }
 
     @Test
@@ -45,7 +43,7 @@ public class CarRepositoryTest {
         BodyCar bodyCar = new BodyCar(hatchBack);
         CarRepository carRepository = new CarRepository(sf());
         carRepository.addBodyCar(bodyCar);
-        Assert.assertEquals(List.of(bodyCar), carRepository.findBodyCarById(bodyCar.getId()));
+        Assert.assertEquals(bodyCar, carRepository.findBodyCarById(bodyCar.getId()).get());
     }
 
     @Test

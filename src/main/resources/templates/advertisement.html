@@ -50,7 +50,6 @@
                 <th scope="col">Марка</th>
                 <th scope="col">Двигатель</th>
                 <th scope="col">Дата создания</th>
-                <th scope="col">Пользователь</th>
             </tr>
             </thead>
             <div class="card" style="width: 100%">
@@ -66,13 +65,12 @@
                     </span>
                     </td>
                     <td>
-                        <img th:width="200" th:high="200" th:src="@{|/photoAds/${advertisement.id}|}">
+                        <img th:width="500" th:high="500" th:src="@{|/photoAds/${advertisement.id}|}">
                     </td>
                     <td th:text="${advertisement.bodyCar.name}"> </td>
                     <td th:text="${advertisement.mark.name}"> </td>
                     <td th:text="${advertisement.engine.name}"> </td>
                     <td th:text="${advertisement.created}"> </td>
-                    <td th:text="${advertisement.user.nameOne}"> </td>
                     <a th:href="@{|/deleteAdvertisement/${advertisement.id}|}">
                         <button type="submit" name="submit_button" value="main_button">
                             Удалить</button>
