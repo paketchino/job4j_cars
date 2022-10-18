@@ -147,10 +147,9 @@ public class AdsRepositoryTest {
         String header = "Машина на костылях, отвечаю едет";
         String desc = "Машина не бита не крашена, не была в угоне. "
                 + "Ну почти, отвечаю, мамой клянусь";
-        boolean isCeil = false;
         byte[] photo = new byte[]{};
         Advertisement ads =
-                new Advertisement(header, desc, isCeil, photo,
+                new Advertisement(header, desc, false, photo,
                                 LocalDateTime.now().withNano(0), user, bodyCar, mark, engine);
         Advertisement adsUpdateStatus =
                 new Advertisement(ads.getId(), header, desc, true, photo,
@@ -174,9 +173,9 @@ public class AdsRepositoryTest {
         adsRepository.addAds(ads);
         Assert.assertEquals(adsRepository.findByIdAds(ads.getId()).get(), ads);
 
-        Assert.assertFalse(adsRepository.updateAdsStatus(adsUpdateStatus));
-        Assert.assertEquals(adsRepository
-                .findAllAdsWhereStatusTrue().get(0).isCell(), true);
+        Assert.assertTrue(adsRepository.updateAdsStatus(adsUpdateStatus));
+        Assert.assertTrue(adsRepository
+                .findAllAdsWhereStatusTrue().get(0).isCell());
     }
 
     @Test

@@ -84,7 +84,7 @@ public class AdsRepository implements AdsRepositoryInterface, DefaultMethod {
     public boolean updateAdsStatus(Advertisement advertisement) {
         LOGGER.info("Начато обновление статуса Advertisement");
         return tx(session -> session
-                .createQuery("update Advertisement a set a.isCell =:aCell where a.id =: aId")
+                .createQuery("update Advertisement a set a.isCell =:aCell where a.id =:aId")
                 .setParameter("aCell", true)
                 .setParameter("aId", advertisement.getId())
                 .executeUpdate() > 0, sessionFactory);
