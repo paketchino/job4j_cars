@@ -151,10 +151,6 @@ public class AdsRepositoryTest {
         Advertisement ads =
                 new Advertisement(header, desc, false, photo,
                                 LocalDateTime.now().withNano(0), user, bodyCar, mark, engine);
-        Advertisement adsUpdateStatus =
-                new Advertisement(ads.getId(), header, desc, true, photo,
-                                LocalDateTime.now().withNano(0), user, bodyCar, mark, engine);
-
         CarRepository carRepository = new CarRepository(sf());
         UserRepository userRepository = new UserRepository(sf());
         AdsRepository adsRepository = new AdsRepository(sf());
@@ -172,6 +168,9 @@ public class AdsRepositoryTest {
 
         adsRepository.addAds(ads);
         Assert.assertEquals(adsRepository.findByIdAds(ads.getId()).get(), ads);
+        Advertisement adsUpdateStatus =
+                new Advertisement(ads.getId(), header, desc, true, photo,
+                        LocalDateTime.now().withNano(0), user, bodyCar, mark, engine);
 
         Assert.assertTrue(adsRepository.updateAdsStatus(adsUpdateStatus));
         Assert.assertTrue(adsRepository
