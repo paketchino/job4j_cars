@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "bodyCars")
+@Table(name = "car_bodies")
 @Getter
 @EqualsAndHashCode
 @ToString

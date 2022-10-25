@@ -21,6 +21,11 @@
 ![H2](https://img.shields.io/badge/hsqldb-2.1.214-yellowgreen)
 ![Log4j](https://img.shields.io/badge/Log4j-2.18.0-green)
 
+## Контакты
+[![Telegram](https://img.shields.io/badge/TELEGRAM-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/romanka3)
+
+### chansforman@gmail.com
+
 ## Задание.
 
 1. Текущее задание выполняйте в проекте job4j_cars, который мы создали в предыдущем задании.
@@ -37,13 +42,14 @@
 
 - Java 17
 - Apache Maven 3.x
+- Postgres 14
 
 
 ## Запуск приложения
 
 1. Создать бд:
 ```sql
-create database car_version_3;
+create database car_db;
 ```
 
 2. Запуск приложения с maven. Перейдите в корень проекта через командную строку и выполните команды:

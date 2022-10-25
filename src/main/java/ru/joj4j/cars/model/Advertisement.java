@@ -48,7 +48,7 @@ public class Advertisement implements Serializable {
 
     @NonNull
     @ManyToOne
-    @JoinColumn(name = "bodyCar_id", foreignKey = @ForeignKey(name = "BODYCAR_ID_FK"))
+    @JoinColumn(name = "bodies_car_id", foreignKey = @ForeignKey(name = "BODYCAR_ID_FK"))
     private BodyCar bodyCar;
 
     @NonNull
