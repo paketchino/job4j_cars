@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.joj4j.cars.model.Advertisement;
+import ru.joj4j.cars.model.Car;
 import ru.joj4j.cars.model.User;
 import ru.joj4j.cars.service.AdsService;
 import ru.joj4j.cars.service.CarService;
@@ -50,16 +51,15 @@ public class AdsController {
     @PostMapping("/createAds")
     public String createAds(HttpSession session,
                             @ModelAttribute Advertisement advertisement,
+                            @ModelAttribute Car car,
                             @RequestParam (name = "engineId") int engineId,
                             @RequestParam (name = "markId") int markId,
                             @RequestParam (name = "bodyId") int bodyId,
+                            @RequestParam (name = "carId") int carId,
                             @RequestParam("file") MultipartFile file) throws IOException {
         advertisement.setUser((User) session.getAttribute("user"));
         advertisement.setPhoto(file.getBytes());
-        advertisement.setCreated(LocalDateTime.now().withNano(0));
-        advertisement.setBodyCar(carService.findBodyCarById(bodyId).get());
-        advertisement.setMark(carService.findMarkById(markId).get());
-        advertisement.setEngine(carService.findEngineById(engineId).get());
+        changePropertiesCar(advertisement, car, engineId, markId, bodyId, carId);
         adsService.addAds(advertisement);
         return "redirect:/index";
     }
@@ -110,17 +110,16 @@ public class AdsController {
 
     @PostMapping("/updateAdvertisement")
     public String changeAds(@ModelAttribute Advertisement advertisement,
+                            @ModelAttribute Car car,
                             @RequestParam (name = "engineId") int engineId,
                             @RequestParam (name = "markId") int markId,
                             @RequestParam (name = "bodyId") int bodyId,
+                            @RequestParam (name = "carId") int carId,
                             @RequestParam("file") MultipartFile file)
             throws IOException {
         advertisement.setPhoto(file.getBytes());
         advertisement.setCell(false);
-        advertisement.setCreated(LocalDateTime.now().withNano(0));
-        advertisement.setBodyCar(carService.findBodyCarById(bodyId).get());
-        advertisement.setMark(carService.findMarkById(markId).get());
-        advertisement.setEngine(carService.findEngineById(engineId).get());
+        changePropertiesCar(advertisement, car, engineId, markId, bodyId, carId);
         adsService.updateAds(advertisement);
         return "redirect:/index";
     }
@@ -137,5 +136,19 @@ public class AdsController {
     public String changeAdsStatusForTrue(@ModelAttribute Advertisement advertisement) {
         adsService.updateAdsStatus(advertisement);
         return "redirect:/index";
+    }
+
+    private void changePropertiesCar(@ModelAttribute Advertisement advertisement,
+                                     @ModelAttribute Car car,
+                                     @RequestParam(name = "engineId") int engineId,
+                                     @RequestParam(name = "markId") int markId,
+                                     @RequestParam(name = "bodyId") int bodyId,
+                                     @RequestParam(name = "carId") int carId) {
+        carService.addCar(car);
+        advertisement.setCreated(LocalDateTime.now().withNano(0));
+        car.setBodyCar(carService.findBodyCarById(bodyId).get());
+        car.setMark(carService.findMarkById(markId).get());
+        car.setEngine(carService.findEngineById(engineId).get());
+        advertisement.setCar(carService.findCarById(carId).get());
     }
 }

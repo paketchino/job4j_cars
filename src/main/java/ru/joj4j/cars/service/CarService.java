@@ -26,7 +26,7 @@ public class CarService implements CarServiceInterface {
     }
 
     @Override
-    public Optional<Car> findById(int id) {
+    public Optional<Car> findCarById(int id) {
         return carRepository.findById(id);
     }
 

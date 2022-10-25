@@ -66,15 +66,13 @@ public class AdsRepository implements AdsRepositoryInterface, DefaultMethod {
         return tx(session -> session
                 .createQuery("update Advertisement as a "
                         + "set a.header =:aHead, a.description =:aDesc, "
-                        + "a.photo =:aPhoto, a.mark.id =:aNewMark, "
-                        + "a.engine.id =:aEngine, a.bodyCar.id =:aBodyCar, a.isCell =:aCell "
+                        + "a.photo =:aPhoto, a.car.id =:aNewCar, "
+                        + "a.isCell =:aCell "
                         + "where a.id = :aId")
                 .setParameter("aHead", advertisement.getHeader())
                 .setParameter("aDesc", advertisement.getDescription())
                 .setParameter("aPhoto", advertisement.getPhoto())
-                .setParameter("aNewMark", advertisement.getMark().getId())
-                .setParameter("aEngine", advertisement.getEngine().getId())
-                .setParameter("aBodyCar", advertisement.getBodyCar().getId())
+                .setParameter("aNewCar", advertisement.getCar().getId())
                 .setParameter("aCell", false)
                 .setParameter("aId", advertisement.getId())
                 .executeUpdate() > 0, sessionFactory);
@@ -104,7 +102,7 @@ public class AdsRepository implements AdsRepositoryInterface, DefaultMethod {
         LOGGER.info("Поиск всех Advertisement со статусом true");
         return tx(session ->
                 session.createQuery("select distinct a from Advertisement "
-                        + "a join fetch a.bodyCar where a.isCell= :aCell")
+                        + "a join fetch a.car where a.isCell= :aCell")
                 .setParameter("aCell", true).list(), sessionFactory);
     }
 

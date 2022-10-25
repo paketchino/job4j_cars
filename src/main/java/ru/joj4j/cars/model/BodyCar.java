@@ -17,6 +17,7 @@ import java.io.Serializable;
 public class BodyCar implements Serializable {
 
     @Id
+    @NonNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

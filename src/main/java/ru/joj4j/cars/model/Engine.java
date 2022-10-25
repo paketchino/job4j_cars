@@ -16,6 +16,7 @@ import java.io.Serializable;
 public class Engine implements Serializable {
 
     @Id
+    @NonNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

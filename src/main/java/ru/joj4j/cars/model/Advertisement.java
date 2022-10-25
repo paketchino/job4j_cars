@@ -48,26 +48,15 @@ public class Advertisement implements Serializable {
 
     @NonNull
     @ManyToOne
-    @JoinColumn(name = "bodies_car_id", foreignKey = @ForeignKey(name = "BODYCAR_ID_FK"))
-    private BodyCar bodyCar;
-
-    @NonNull
-    @ManyToOne
-    @JoinColumn(name = "mark_id", foreignKey = @ForeignKey(name = "MARK_ID_FK"))
-    private Mark mark;
-
-    @NonNull
-    @ManyToOne
-    @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
-    private Engine engine;
+    @JoinColumn(name = "car_id", foreignKey = @ForeignKey(name = "CAR_ID_FK"))
+    private Car car;
 
     public Advertisement(int id, @NonNull String header,
                          @NonNull String description,
                          boolean isCell,
                          byte[] photo,
                          @NonNull LocalDateTime created,
-                         @NonNull User user, @NonNull BodyCar bodyCar,
-                         @NonNull Mark mark, @NonNull Engine engine) {
+                         @NonNull User user, @NonNull Car car) {
         this.id = id;
         this.header = header;
         this.description = description;
@@ -75,9 +64,7 @@ public class Advertisement implements Serializable {
         this.photo = photo;
         this.created = created;
         this.user = user;
-        this.bodyCar = bodyCar;
-        this.mark = mark;
-        this.engine = engine;
+        this.car = car;
     }
 
     @Override
@@ -96,15 +83,13 @@ public class Advertisement implements Serializable {
                 && Arrays.equals(photo, that.photo)
                 && created.equals(that.created)
                 && user.equals(that.user)
-                && bodyCar.equals(that.bodyCar)
-                && mark.equals(that.mark)
-                && engine.equals(that.engine);
+                && car.equals(that.car);
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hash(id, header, description,
-                isCell, created, user, bodyCar, mark, engine);
+                isCell, created, user, car);
         result = 31 * result + Arrays.hashCode(photo);
         return result;
     }
@@ -117,8 +102,7 @@ public class Advertisement implements Serializable {
                 + ", isCell=" + isCell
                 + ", photo=" + Arrays.toString(photo) + ", created="
                 + created + ", user="
-                + user + ", bodyCar=" + bodyCar
-                + ", mark=" + mark + ", engine="
-                + engine + '}';
+                + user + ", car=" + car
+                + '}';
     }
 }

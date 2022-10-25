@@ -13,6 +13,7 @@ import ru.joj4j.cars.storagerepository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Set;
 
 public class AdsRepositoryTest {
 
@@ -27,19 +28,22 @@ public class AdsRepositoryTest {
         String userString = "paketchibo" + System.nanoTime();
         User user = new User("Serhet", "Gavrilov", userString, "12345");
         String bodyCarString = "Джип Огромный" + System.nanoTime();
-        BodyCar bodyCar = new BodyCar(bodyCarString);
+        BodyCar bodyCar = new BodyCar(2, bodyCarString);
         String stringMark = "Очень спортивная марка" + System.nanoTime();
-        Mark mark = new Mark(stringMark);
+        Mark mark = new Mark(2, stringMark);
         String engineString = "Мощь измеримая в лошадях, в живых " + System.nanoTime();
-        Engine engine = new Engine(engineString);
+        Engine engine = new Engine(2, engineString);
         String header = "Машина на костылях, отвечаю едет";
         String desc = "Машина не бита не крашена, не была в угоне. "
                 + "Ну почти, отвечаю, мамой клянусь";
         boolean isCeil = false;
         byte[] photo = new byte[]{};
+        String name = "Car 1";
+        Set<User> drivers = Set.of(user);
+        Car car = new Car(1, name, mark, engine, bodyCar, drivers);
         Advertisement advertisement =
                 new Advertisement(header, desc, isCeil, photo,
-                                LocalDateTime.now().withNano(0), user, bodyCar, mark, engine);
+                                LocalDateTime.now().withNano(0), user, car);
         CarRepository carRepository = new CarRepository(sf());
         UserRepository userRepository = new UserRepository(sf());
         AdsRepository adsRepository = new AdsRepository(sf());
@@ -49,10 +53,13 @@ public class AdsRepositoryTest {
         carRepository.addMark(mark);
         carRepository.addEngine(engine);
         carRepository.addBodyCar(bodyCar);
+        carRepository.addCar(car);
 
         Assert.assertEquals(carRepository.findMarkById(mark.getId()).get(), mark);
         Assert.assertEquals(carRepository.findEngineById(engine.getId()).get(), engine);
         Assert.assertEquals(carRepository.findBodyCarById(bodyCar.getId()).get(), bodyCar);
+
+        Assert.assertEquals(carRepository.findById(car.getId()).get().getBodyCar(), bodyCar);
 
         adsRepository.addAds(advertisement);
         Assert.assertEquals(adsRepository.
@@ -63,22 +70,24 @@ public class AdsRepositoryTest {
     public void whenUpdateAdsThenReturnUpdatesAds() {
         String userString = "paketchibo" + System.nanoTime();
         User user = new User("Serhet", "Gavrilov", userString, "12345");
+        Set<User> users = Set.of(user);
         String bodyCarString = "Джип Огромный" + System.nanoTime();
-        BodyCar bodyCar = new BodyCar(bodyCarString);
+        BodyCar bodyCar = new BodyCar(3, bodyCarString);
         String updBodyCarString = "SEDAN" + System.nanoTime();
-        BodyCar updateBodyCar = new BodyCar(updBodyCarString);
+        BodyCar updateBodyCar = new BodyCar(3, updBodyCarString);
         String stringMark = "X5 " + System.nanoTime();
-        Mark mark = new Mark(stringMark);
+        Mark mark = new Mark(3, stringMark);
         String updateStringMark = "X35 " + System.nanoTime();
-        Mark updateMark = new Mark(updateStringMark);
+        Mark updateMark = new Mark(4, updateStringMark);
         String engineString = "Отвечаю быстрая " + System.nanoTime();
-        Engine engine = new Engine(engineString);
+        Engine engine = new Engine(3, engineString);
         String updateEngineString = "Реактивный" + System.nanoTime();
-        Engine updateEngine = new Engine(updateEngineString);
-
+        Engine updateEngine = new Engine(5, updateEngineString);
+        Car car = new Car(87, "Car 2", mark, engine, bodyCar, users);
+        Car updateCar =
+                new Car(car.getId(), "Car 3", updateMark, updateEngine, updateBodyCar, users);
         String header = "Машина на костылях, отвечаю едет";
         String updateHeader = "Машина BMW X5 в хорошем состоянии. Ни битая, не крашенная.";
-
         String desc = "Машина не бита не крашена, не была в угоне. "
                 + "Ну почти, отвечаю, мамой клянусь";
         String updateDesc = "Продаю машину потому, что купил новую машину. "
@@ -101,37 +110,35 @@ public class AdsRepositoryTest {
         carRepository.addBodyCar(updateBodyCar);
         carRepository.addEngine(updateEngine);
 
-        Assert.assertEquals(carRepository
-                .findBodyCarById(updateBodyCar.getId()).get(), updateBodyCar);
-        Assert.assertEquals(carRepository
-                .findMarkById(updateMark.getId()).get(), updateMark);
-        Assert.assertEquals(carRepository
-                .findEngineById(updateEngine.getId()).get(), updateEngine);
-
         userRepository.addUser(user);
 
-        Assert.assertEquals(userRepository.findByIdUser(user.getId()).get(), user);
+        carRepository.addCar(car);
+        carRepository.addCar(updateCar);
 
+        Assert.assertEquals(userRepository.findByIdUser(user.getId()).get(), user);
         Advertisement ads =
                 new Advertisement(header, desc, isCeil, photo,
-                                LocalDateTime.now().withNano(0), user, bodyCar, mark, engine);
+                                LocalDateTime.now().withNano(0), user, car);
         adsRepository.addAds(ads);
         Assert.assertEquals(adsRepository.findByIdAds(ads.getId()).get(), ads);
 
         Advertisement updateAds =
                 new Advertisement(ads.getId(), updateHeader, updateDesc, isCeil, photo,
                                 LocalDateTime.now().withNano(0),
-                                user, updateBodyCar, updateMark, updateEngine);
+                                user, updateCar);
 
         adsRepository.updateAds(updateAds);
         Assert.assertEquals(adsRepository
                 .findByIdAds(updateAds.getId()).get(), updateAds);
         Assert.assertEquals(adsRepository
-                .findByIdAds(updateAds.getId()).get().getEngine(), updateAds.getEngine());
+                .findByIdAds(updateAds.getId()).get().getCar().getEngine(),
+                updateAds.getCar().getEngine());
         Assert.assertEquals(adsRepository
-                .findByIdAds(updateAds.getId()).get().getBodyCar(), updateAds.getBodyCar());
+                .findByIdAds(updateAds.getId()).get().getCar().getBodyCar(),
+                updateAds.getCar().getBodyCar());
         Assert.assertEquals(adsRepository
-                .findByIdAds(updateAds.getId()).get().getMark(), updateAds.getMark());
+                .findByIdAds(updateAds.getId()).get().getCar().getMark(),
+                updateAds.getCar().getMark());
     }
 
     @Test
@@ -139,18 +146,22 @@ public class AdsRepositoryTest {
         String userString = "paketchibo" + System.nanoTime();
         User user = new User(1, "Serhet", "Gavrilov", userString, "12345");
         String bodyCarString = "Джип Огромный" + System.nanoTime();
-        BodyCar bodyCar = new BodyCar(bodyCarString);
+        BodyCar bodyCar = new BodyCar(10, bodyCarString);
         String stringMark = "Очень спортивная марка " + System.nanoTime();
-        Mark mark = new Mark(stringMark);
+        Mark mark = new Mark(10, stringMark);
         String engineString = "Мощь измеримая в лошадях, в живых" + System.nanoTime();
-        Engine engine = new Engine(engineString);
+        Engine engine = new Engine(10, engineString);
         String header = "Машина на костылях, отвечаю едет";
         String desc = "Машина не бита не крашена, не была в угоне. "
                 + "Ну почти, отвечаю, мамой клянусь";
         byte[] photo = new byte[]{};
+        Set<User> users = Set.of(user);
+        Car car = new Car(3, "Car 3", mark, engine, bodyCar, users);
+        Car updateCar = new Car(car.getId(), car.getName(), car.getMark(), car.getEngine(),
+                car.getBodyCar(), users);
         Advertisement ads =
                 new Advertisement(header, desc, false, photo,
-                                LocalDateTime.now().withNano(0), user, bodyCar, mark, engine);
+                                LocalDateTime.now().withNano(0), user, car);
         CarRepository carRepository = new CarRepository(sf());
         UserRepository userRepository = new UserRepository(sf());
         AdsRepository adsRepository = new AdsRepository(sf());
@@ -161,16 +172,19 @@ public class AdsRepositoryTest {
         carRepository.addMark(mark);
         carRepository.addEngine(engine);
         carRepository.addBodyCar(bodyCar);
+        carRepository.addCar(car);
+        carRepository.addCar(updateCar);
 
         Assert.assertEquals(carRepository.findMarkById(mark.getId()).get(), mark);
         Assert.assertEquals(carRepository.findEngineById(engine.getId()).get(), engine);
         Assert.assertEquals(carRepository.findBodyCarById(bodyCar.getId()).get(), bodyCar);
+        Assert.assertEquals(carRepository.findById(car.getId()).get(), car);
 
         adsRepository.addAds(ads);
         Assert.assertEquals(adsRepository.findByIdAds(ads.getId()).get(), ads);
         Advertisement adsUpdateStatus =
                 new Advertisement(ads.getId(), header, desc, true, photo,
-                        LocalDateTime.now().withNano(0), user, bodyCar, mark, engine);
+                        LocalDateTime.now().withNano(0), user, updateCar);
 
         Assert.assertTrue(adsRepository.updateAdsStatus(adsUpdateStatus));
         Assert.assertTrue(adsRepository
@@ -179,32 +193,34 @@ public class AdsRepositoryTest {
 
     @Test
     public void deleteAds() {
+        CarRepository carRepository = new CarRepository(sf());
+        UserRepository userRepository = new UserRepository(sf());
+        AdsRepository adsRepository = new AdsRepository(sf());
         String userString = "paketchibo " + System.nanoTime();
         User user = new User("Serhet", "Gavrilov", userString, "12345");
         String bodyCarString = "Джип Огромный " + System.nanoTime();
-        BodyCar bodyCar = new BodyCar(bodyCarString);
+        BodyCar bodyCar = new BodyCar(1, bodyCarString);
         String stringMark = "Очень спортивная марка " + System.nanoTime();
-        Mark mark = new Mark(stringMark);
+        Mark mark = new Mark(1, stringMark);
         String engineString = "Мощь измеримая в лошадях, в живых " + System.nanoTime();
-        Engine engine = new Engine(engineString);
+        Engine engine = new Engine(1, engineString);
         String header = "Машина на костылях, отвечаю едет";
         String desc = "Машина не бита не крашена, не была в угоне. "
                 + "Ну почти, отвечаю, мамой клянусь";
         boolean isCeil = false;
+        Set<User> users = Set.of(user);
         byte[] photo = new byte[]{};
-        Advertisement ads =
-                new Advertisement(header, desc, isCeil, photo,
-                                LocalDateTime.now().withNano(0), user, bodyCar, mark, engine);
-        CarRepository carRepository = new CarRepository(sf());
-        UserRepository userRepository = new UserRepository(sf());
-        AdsRepository adsRepository = new AdsRepository(sf());
-
         userRepository.addUser(user);
-        Assert.assertEquals(userRepository.findByIdUser(user.getId()).get(), user);
-
         carRepository.addMark(mark);
         carRepository.addEngine(engine);
         carRepository.addBodyCar(bodyCar);
+        Car car = new Car(67, "Car 4", mark, engine, bodyCar, users);
+        carRepository.addCar(car);
+        Advertisement ads =
+                new Advertisement(header, desc, isCeil, photo,
+                                LocalDateTime.now().withNano(0), user, car);
+
+        Assert.assertEquals(userRepository.findByIdUser(user.getId()).get(), user);
 
         adsRepository.addAds(ads);
         Assert.assertEquals(adsRepository.findByIdAds(ads.getId()).get(), ads);

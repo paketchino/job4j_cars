@@ -12,7 +12,7 @@ public interface CarServiceInterface {
 
     Optional<Car> addCar(Car car);
 
-    Optional<Car> findById(int id);
+    Optional<Car> findCarById(int id);
 
     Optional<Engine> addEngine(Engine engine);
 

@@ -24,14 +24,14 @@ public class CarRepositoryTest {
     public void whenAddEngineThenReturnEngineName() {
         CarRepository carRepository = new CarRepository(sf());
         String stringEngine = "2.5L" + System.nanoTime();
-        Engine engine = new Engine(stringEngine);
+        Engine engine = new Engine(1, stringEngine);
         Assert.assertEquals(carRepository.addEngine(engine).get(), engine);
     }
 
     @Test
     public void whenAddMarkThenMarkName() {
         String stringMark = "X4" + System.nanoTime();
-        Mark mark = new Mark(stringMark);
+        Mark mark = new Mark(1, stringMark);
         CarRepository carRepository = new CarRepository(sf());
         carRepository.addMark(mark);
         Assert.assertEquals(mark, carRepository.findMarkById(mark.getId()).get());
@@ -40,7 +40,7 @@ public class CarRepositoryTest {
     @Test
     public void whenAddCarcaseThenCarcaseReturn() {
         String hatchBack = "ХэтчБэк" + System.nanoTime();
-        BodyCar bodyCar = new BodyCar(hatchBack);
+        BodyCar bodyCar = new BodyCar(1, hatchBack);
         CarRepository carRepository = new CarRepository(sf());
         carRepository.addBodyCar(bodyCar);
         Assert.assertEquals(bodyCar, carRepository.findBodyCarById(bodyCar.getId()).get());
@@ -49,11 +49,11 @@ public class CarRepositoryTest {
     @Test
     public void whenAddCarAddTypeBodyMarkEngineBodyCarThenReturnFullCar() {
         String hatchBack = "ХэтчБэк" + System.nanoTime();
-        BodyCar bodyCar = new BodyCar(hatchBack);
+        BodyCar bodyCar = new BodyCar(1, hatchBack);
         String engineSt = "Мощный" + System.nanoTime();
-        Engine engine = new Engine(engineSt);
+        Engine engine = new Engine(1, engineSt);
         String markX5 = "X5" + System.nanoTime();
-        Mark mark = new Mark(markX5);
+        Mark mark = new Mark(1, markX5);
         String carString = "BMW" + System.nanoTime();
         Car car = new Car(carString, mark, engine, bodyCar);
 

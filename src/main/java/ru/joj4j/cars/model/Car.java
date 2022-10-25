@@ -36,7 +36,7 @@ public class Car implements Serializable {
 
     @NonNull
     @ManyToOne
-    @JoinColumn(name = "car_bodies_id", foreignKey = @ForeignKey(name = "BODYCAR_ID_FK"))
+    @JoinColumn(name = "bodyCar_id", foreignKey = @ForeignKey(name = "BODYCAR_ID_FK"))
     private BodyCar bodyCar;
 
     @NonNull
