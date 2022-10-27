@@ -8,21 +8,17 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@Table(name = "cars")
 @AllArgsConstructor
 @Setter
 @Getter
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
-@Table(name = "cars")
 public class Car implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @NonNull
-    @Column(unique = true, nullable = false)
-    private String name;
 
     @NonNull
     @ManyToOne
@@ -36,7 +32,7 @@ public class Car implements Serializable {
 
     @NonNull
     @ManyToOne
-    @JoinColumn(name = "bodyCar_id", foreignKey = @ForeignKey(name = "BODYCAR_ID_FK"))
+    @JoinColumn(name = "car_bodies_id", foreignKey = @ForeignKey(name = "CAR_BODIES_ID_FK"))
     private BodyCar bodyCar;
 
     @NonNull
@@ -56,7 +52,7 @@ public class Car implements Serializable {
             return false;
         }
         Car car = (Car) o;
-        return id == car.id && name.equals(car.name)
+        return id == car.id
                 && mark.equals(car.mark)
                 && engine.equals(car.engine)
                 && bodyCar.equals(car.bodyCar);
@@ -64,13 +60,13 @@ public class Car implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, mark, engine, bodyCar);
+        return Objects.hash(id, mark, engine, bodyCar);
     }
 
     @Override
     public String toString() {
         return "Car{" + "id=" + id
-                + ", name='" + name + '\'' + ", mark=" + mark + ", engine="
+                + '\'' + ", mark=" + mark + ", engine="
                 + engine + ", bodyCar=" + bodyCar + '}';
     }
 

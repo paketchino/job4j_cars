@@ -23,7 +23,6 @@ create table if not exists car_bodies (
 
 create table if not exists cars (
     id serial primary key,
-    name text unique,
     mark_id int not null references marks(id),
     engine_id int not null references engines(id),
     car_bodies_id int not null references car_bodies(id)

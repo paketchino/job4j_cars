@@ -58,8 +58,13 @@ public class AdsController {
                             @RequestParam (name = "carId") int carId,
                             @RequestParam("file") MultipartFile file) throws IOException {
         advertisement.setUser((User) session.getAttribute("user"));
+        car.setBodyCar(carService.findBodyCarById(bodyId).get());
+        car.setMark(carService.findMarkById(markId).get());
+        car.setEngine(carService.findEngineById(engineId).get());
+        carService.addCar(car);
+        advertisement.setCar(carService.findCarById(carId).get());
         advertisement.setPhoto(file.getBytes());
-        changePropertiesCar(advertisement, car, engineId, markId, bodyId, carId);
+        advertisement.setCreated(LocalDateTime.now().withNano(0));
         adsService.addAds(advertisement);
         return "redirect:/index";
     }

@@ -55,7 +55,7 @@ public class CarRepositoryTest {
         String markX5 = "X5" + System.nanoTime();
         Mark mark = new Mark(1, markX5);
         String carString = "BMW" + System.nanoTime();
-        Car car = new Car(carString, mark, engine, bodyCar);
+        Car car = new Car(mark, engine, bodyCar);
 
         CarRepository carRepository = new CarRepository(sf());
         carRepository.addEngine(engine);

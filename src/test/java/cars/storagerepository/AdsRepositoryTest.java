@@ -40,7 +40,7 @@ public class AdsRepositoryTest {
         byte[] photo = new byte[]{};
         String name = "Car 1";
         Set<User> drivers = Set.of(user);
-        Car car = new Car(1, name, mark, engine, bodyCar, drivers);
+        Car car = new Car(1, mark, engine, bodyCar, drivers);
         Advertisement advertisement =
                 new Advertisement(header, desc, isCeil, photo,
                                 LocalDateTime.now().withNano(0), user, car);
@@ -83,9 +83,9 @@ public class AdsRepositoryTest {
         Engine engine = new Engine(3, engineString);
         String updateEngineString = "Реактивный" + System.nanoTime();
         Engine updateEngine = new Engine(5, updateEngineString);
-        Car car = new Car(87, "Car 2", mark, engine, bodyCar, users);
+        Car car = new Car(87, mark, engine, bodyCar, users);
         Car updateCar =
-                new Car(car.getId(), "Car 3", updateMark, updateEngine, updateBodyCar, users);
+                new Car(car.getId(), updateMark, updateEngine, updateBodyCar, users);
         String header = "Машина на костылях, отвечаю едет";
         String updateHeader = "Машина BMW X5 в хорошем состоянии. Ни битая, не крашенная.";
         String desc = "Машина не бита не крашена, не была в угоне. "
@@ -156,8 +156,8 @@ public class AdsRepositoryTest {
                 + "Ну почти, отвечаю, мамой клянусь";
         byte[] photo = new byte[]{};
         Set<User> users = Set.of(user);
-        Car car = new Car(3, "Car 3", mark, engine, bodyCar, users);
-        Car updateCar = new Car(car.getId(), car.getName(), car.getMark(), car.getEngine(),
+        Car car = new Car(3, mark, engine, bodyCar, users);
+        Car updateCar = new Car(car.getId(), car.getMark(), car.getEngine(),
                 car.getBodyCar(), users);
         Advertisement ads =
                 new Advertisement(header, desc, false, photo,
@@ -210,12 +210,15 @@ public class AdsRepositoryTest {
         boolean isCeil = false;
         Set<User> users = Set.of(user);
         byte[] photo = new byte[]{};
-        userRepository.addUser(user);
         carRepository.addMark(mark);
         carRepository.addEngine(engine);
         carRepository.addBodyCar(bodyCar);
-        Car car = new Car(67, "Car 4", mark, engine, bodyCar, users);
+        Car car = new Car(67,
+                carRepository.findMarkById(mark.getId()).get(),
+                carRepository.findEngineById(engine.getId()).get(),
+                carRepository.findBodyCarById(bodyCar.getId()).get(), users);
         carRepository.addCar(car);
+        userRepository.addUser(user);
         Advertisement ads =
                 new Advertisement(header, desc, isCeil, photo,
                                 LocalDateTime.now().withNano(0), user, car);
