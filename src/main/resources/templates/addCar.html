@@ -1,11 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -15,47 +12,41 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <title>TODO</title>
 </head>
-
 <body>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" th:href="@{/index}">Все заявки на данный момент</a>
+        <a class="navbar-brand" th:href="@{/index}"><p class="text-uppercase">Сайт продажи машин job4j cars</p> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" th:href="@{/index}">Созданные объявления <span class="sr-only">(current)</span></a>
-            </div>
-            <div class="navbar-nav">
-                <a class="nav-item nav-link" th:if="${user.nameOne == 'Гость'}" th:href="@{/loginPage}">
-                    <a class="nav-item nav-link active" th:href="@{/addAds}">Добавить объявление <span class="sr-only">(current)</span></a>
-                    <span th:text="${user.nameOne}"></span>
-                    <span> | Войти</span>
-                </a>
-                <a class="nav-item nav-link" th:if="${user.nameOne != 'Гость'}" th:href="@{/logout}">
-                    <span th:text="${user.nameOne}"></span>
-                    <span> | Выйти</span>
-                </a>
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" th:if="${user.nameOne == 'Гость'}" th:href="@{/loginPage}">
+                        <a class="nav-item nav-link active" th:href="@{/addUser}">Регистрация <span class="sr-only">(current)</span></a>
+                        <span th:text="${user.nameOne}"></span>
+                        <span> | Войти</span>
+                    </a>
+                    <a class="nav-item nav-link" th:if="${user.nameOne != 'Гость'}" th:href="@{/logout}">
+                        <span th:text="${user.nameOne}"></span>
+                        <span> | Выйти</span>
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
     <div class="row">
-        <div class="card-header">
-            Обновление объявления о продаже.
-        </div>
-        <div class="card-body">
-            <form class="form-horizontal" style="width: 100%" th:action="@{/updateAdvertisement}" th:method="POST"
-                  enctype="multipart/form-data" th:object="${advertisement}">
-                <input type="hidden" name="id" th:field="*{id}"/>
-                <div class="form-group">
-                    <div class="form-group">
-                        <label for="header">Объявления</label>
-                        <input type="text" class="form-control" name="header" id="header" th:field="*{header}" >
-                        <label for="description">Описание</label>
-                        <input type="text" class="form-control" name="description" id="description" th:field="*{description}">
+        <div class="card" style="width: 100%">
+            <div class="card-header">
+                Добавление машины.
+            </div>
+            <div class="container">
+                <form class="form-horizontal" style="width: 100%" th:action="@{/createCar}" th:method="POST"
+                      enctype="multipart/form-data" th:object="${car}">
+                    <input type="hidden" name="id" value="0"/>
+                    <form>
                         <div class="form-group">
                             <label for="bodyCar.id">Тип кузова</label>
                             <select class="form-control" id="bodyCar.id" name="bodyId">
@@ -86,14 +77,10 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="form-group">
-                        <label for="file">Фотография</label>
-                        <input type="file" class="form-control" name="file" id="file">
-                    </div>
-                    <a th:href="@{|confirmationUpdate|}">
-                        <button type="submit" class="btn btn-primary">Подтвердить</button>
-                    </a>
-                    </div>
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </form>
+                </form>
+            </div>
             </form>
         </div>
     </div>

@@ -26,7 +26,7 @@ public class UserRepository implements UserRepositoryInterface, DefaultMethod {
     }
 
     @Override
-    public List<User> findAllForTest() {
+    public List<User> findAll() {
         return tx(session -> session.createQuery("from User").list(), sessionFactory);
     }
 

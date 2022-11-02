@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -35,8 +36,12 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    private Set<Car> usersCar;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "users_cars", joinColumns = {
+            @JoinColumn(name = "user_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "car_id", nullable = false, updatable = false)})
+    private Set<Car> cars = new HashSet<>();
 
     public User(int id,
                 @NonNull String nameOne,
@@ -48,6 +53,18 @@ public class User implements Serializable {
         this.nameTwo = nameTwo;
         this.login = login;
         this.password = password;
+    }
+
+    public User(@NonNull String nameOne,
+                @NonNull String nameTwo,
+                @NonNull String login,
+                @NonNull String password,
+                Set<Car> cars) {
+        this.nameOne = nameOne;
+        this.nameTwo = nameTwo;
+        this.login = login;
+        this.password = password;
+        this.cars = cars;
     }
 
     @Override

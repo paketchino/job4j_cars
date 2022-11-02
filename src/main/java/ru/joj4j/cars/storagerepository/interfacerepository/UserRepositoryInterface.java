@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface UserRepositoryInterface {
 
-    List<User> findAllForTest();
+    List<User> findAll();
 
     Optional<User> addUser(User user);
 

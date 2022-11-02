@@ -24,10 +24,14 @@ public interface CarServiceInterface {
 
     List<BodyCar> findAllBodyType();
 
+    List<Car> findAllCar();
+
     Optional<BodyCar> findBodyCarById(int id);
 
     Optional<Engine> findEngineById(int id);
 
     Optional<Mark> findMarkById(int id);
+
+    boolean updateCar(Car car);
 
 }

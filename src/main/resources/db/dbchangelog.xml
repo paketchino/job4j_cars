@@ -8,6 +8,6 @@
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
-    <include file="scripts/01001_ddl_create_initial_schema.sql" relativeToChangelogFile="true"/>
-<!--    <include file="scripts/0002_dml_init_data.sql" relativeToChangelogFile="true"/>-->
+    <include file="scripts/ddl_create_initial_schema_0001.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/dml_init_data_0002.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

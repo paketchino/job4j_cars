@@ -12,7 +12,7 @@ public interface CarRepositoryInterface {
 
     Optional<Car> addCar(Car car);
 
-    List<Car> findAllCarForTest();
+    List<Car> findAllCar();
 
     Optional<Car> findById(int id);
 
@@ -33,4 +33,6 @@ public interface CarRepositoryInterface {
     Optional<Engine> findEngineById(int id);
 
     Optional<Mark> findMarkById(int id);
+
+    boolean updateCar(Car car);
 }

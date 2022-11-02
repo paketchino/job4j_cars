@@ -41,7 +41,7 @@ public class CarRepository implements CarRepositoryInterface, DefaultMethod {
     }
 
     @Override
-    public List<Car> findAllCarForTest() {
+    public List<Car> findAllCar() {
         LOGGER.info("Список всех машин");
         return tx(session -> session
                 .createQuery("from Car").list(), sessionFactory);
@@ -129,6 +129,18 @@ public class CarRepository implements CarRepositoryInterface, DefaultMethod {
     }
 
     @Override
+    public boolean updateCar(Car car) {
+        LOGGER.info("Начато обновление машины");
+        return tx(session -> session.
+                createQuery("update Car as c set c.bodyCar =:cBody, "
+                        + "c.engine =:cEngine, c.mark =:cMark")
+                .setParameter("cBody", car.getBodyCar())
+                .setParameter("cEngine", car.getEngine())
+                .setParameter("cMark", car.getMark())
+                .executeUpdate() > 0, sessionFactory);
+    }
+
+    @Override
     public Optional<Engine> findEngineById(int id) {
         LOGGER.info("Начато поиск engine id");
         return tx(session -> session.createQuery("from Engine e where e.id =: eId")
@@ -142,5 +154,4 @@ public class CarRepository implements CarRepositoryInterface, DefaultMethod {
         return tx(session -> session.createQuery("from BodyCar bc where bc.id =: bcId")
                 .setParameter("bcId", id).uniqueResultOptional(), sessionFactory);
     }
-
 }

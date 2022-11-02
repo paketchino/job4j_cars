@@ -13,6 +13,7 @@ import java.util.*;
 @RequiredArgsConstructor
 @Table(name = "advertisements")
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 public class Advertisement implements Serializable {
@@ -42,30 +43,14 @@ public class Advertisement implements Serializable {
     private LocalDateTime created;
 
     @NonNull
-    @ManyToOne
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "USERID_ID_FK"))
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
     private User user;
 
     @NonNull
     @ManyToOne
-    @JoinColumn(name = "car_id", foreignKey = @ForeignKey(name = "CAR_ID_FK"))
+    @JoinColumn(name = "car_id")
     private Car car;
-
-    public Advertisement(int id, @NonNull String header,
-                         @NonNull String description,
-                         boolean isCell,
-                         byte[] photo,
-                         @NonNull LocalDateTime created,
-                         @NonNull User user, @NonNull Car car) {
-        this.id = id;
-        this.header = header;
-        this.description = description;
-        this.isCell = isCell;
-        this.photo = photo;
-        this.created = created;
-        this.user = user;
-        this.car = car;
-    }
 
     @Override
     public boolean equals(Object o) {

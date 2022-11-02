@@ -55,6 +55,6 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public List<User> users() {
-        return userRepository.usersForAdmin();
+        return userRepository.findAll();
     }
 }

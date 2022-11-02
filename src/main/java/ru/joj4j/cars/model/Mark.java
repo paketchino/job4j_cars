@@ -21,7 +21,7 @@ public class Mark implements Serializable {
     private int id;
 
     @NonNull
-    @Column(unique = true, nullable = false, updatable = false)
+    @Column(name = "name", unique = true, nullable = false, updatable = false)
     private String name;
 
     @Override

@@ -56,6 +56,11 @@ public class CarService implements CarServiceInterface {
     }
 
     @Override
+    public List<Car> findAllCar() {
+        return carRepository.findAllCar();
+    }
+
+    @Override
     public Optional<BodyCar> findBodyCarById(int id) {
         return carRepository.findBodyCarById(id);
     }
@@ -68,6 +73,11 @@ public class CarService implements CarServiceInterface {
     @Override
     public Optional<Mark> findMarkById(int id) {
         return carRepository.findMarkById(id);
+    }
+
+    @Override
+    public boolean updateCar(Car car) {
+        return carRepository.updateCar(car);
     }
 
 }

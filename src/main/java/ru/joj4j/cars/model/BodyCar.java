@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "car_bodies")
+@Table(name = "bodyCars")
 @Getter
 @EqualsAndHashCode
 @ToString
@@ -22,7 +22,7 @@ public class BodyCar implements Serializable {
     private int id;
 
     @NonNull
-    @Column(unique = true, nullable = false, updatable = false)
+    @Column(name = "name", unique = true, nullable = false, updatable = false)
     private String name;
 
 }

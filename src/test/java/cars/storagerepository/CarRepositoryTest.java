@@ -6,11 +6,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.junit.Assert;
 import org.junit.Test;
-import ru.joj4j.cars.model.BodyCar;
-import ru.joj4j.cars.model.Car;
-import ru.joj4j.cars.model.Engine;
-import ru.joj4j.cars.model.Mark;
+import ru.joj4j.cars.model.*;
 import ru.joj4j.cars.storagerepository.CarRepository;
+import ru.joj4j.cars.storagerepository.UserRepository;
 
 public class CarRepositoryTest {
 
@@ -48,6 +46,8 @@ public class CarRepositoryTest {
 
     @Test
     public void whenAddCarAddTypeBodyMarkEngineBodyCarThenReturnFullCar() {
+        String uniqueLogin = "LOGIN" + System.nanoTime();
+        User user = new User("name", "USER", uniqueLogin, "PASSWORD");
         String hatchBack = "ХэтчБэк" + System.nanoTime();
         BodyCar bodyCar = new BodyCar(1, hatchBack);
         String engineSt = "Мощный" + System.nanoTime();
@@ -55,11 +55,13 @@ public class CarRepositoryTest {
         String markX5 = "X5" + System.nanoTime();
         Mark mark = new Mark(1, markX5);
         String carString = "BMW" + System.nanoTime();
-        Car car = new Car(mark, engine, bodyCar);
-
+        Car car = new Car(1, mark, engine, bodyCar);
+        UserRepository userRepository = new UserRepository(sf());
+        userRepository.addUser(user);
         CarRepository carRepository = new CarRepository(sf());
         carRepository.addEngine(engine);
-        carRepository.addBodyCar(bodyCar);
+        Assert.assertEquals(carRepository.addBodyCar(bodyCar),
+                carRepository.findBodyCarById(bodyCar.getId()));
         carRepository.addMark(mark);
         carRepository.addCar(car);
 

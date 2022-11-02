@@ -13,7 +13,6 @@ import ru.joj4j.cars.storagerepository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.Set;
 
 public class AdsRepositoryTest {
 
@@ -39,8 +38,7 @@ public class AdsRepositoryTest {
         boolean isCeil = false;
         byte[] photo = new byte[]{};
         String name = "Car 1";
-        Set<User> drivers = Set.of(user);
-        Car car = new Car(1, mark, engine, bodyCar, drivers);
+        Car car = new Car(1, mark, engine, bodyCar);
         Advertisement advertisement =
                 new Advertisement(header, desc, isCeil, photo,
                                 LocalDateTime.now().withNano(0), user, car);
@@ -58,7 +56,7 @@ public class AdsRepositoryTest {
         Assert.assertEquals(carRepository.findMarkById(mark.getId()).get(), mark);
         Assert.assertEquals(carRepository.findEngineById(engine.getId()).get(), engine);
         Assert.assertEquals(carRepository.findBodyCarById(bodyCar.getId()).get(), bodyCar);
-
+        Assert.assertEquals(carRepository.findById(car.getId()).get(), car);
         Assert.assertEquals(carRepository.findById(car.getId()).get().getBodyCar(), bodyCar);
 
         adsRepository.addAds(advertisement);
@@ -70,7 +68,6 @@ public class AdsRepositoryTest {
     public void whenUpdateAdsThenReturnUpdatesAds() {
         String userString = "paketchibo" + System.nanoTime();
         User user = new User("Serhet", "Gavrilov", userString, "12345");
-        Set<User> users = Set.of(user);
         String bodyCarString = "Джип Огромный" + System.nanoTime();
         BodyCar bodyCar = new BodyCar(3, bodyCarString);
         String updBodyCarString = "SEDAN" + System.nanoTime();
@@ -83,9 +80,9 @@ public class AdsRepositoryTest {
         Engine engine = new Engine(3, engineString);
         String updateEngineString = "Реактивный" + System.nanoTime();
         Engine updateEngine = new Engine(5, updateEngineString);
-        Car car = new Car(87, mark, engine, bodyCar, users);
+        Car car = new Car(87, mark, engine, bodyCar);
         Car updateCar =
-                new Car(car.getId(), updateMark, updateEngine, updateBodyCar, users);
+                new Car(car.getId(), updateMark, updateEngine, updateBodyCar);
         String header = "Машина на костылях, отвечаю едет";
         String updateHeader = "Машина BMW X5 в хорошем состоянии. Ни битая, не крашенная.";
         String desc = "Машина не бита не крашена, не была в угоне. "
@@ -155,10 +152,9 @@ public class AdsRepositoryTest {
         String desc = "Машина не бита не крашена, не была в угоне. "
                 + "Ну почти, отвечаю, мамой клянусь";
         byte[] photo = new byte[]{};
-        Set<User> users = Set.of(user);
-        Car car = new Car(3, mark, engine, bodyCar, users);
+        Car car = new Car(3, mark, engine, bodyCar);
         Car updateCar = new Car(car.getId(), car.getMark(), car.getEngine(),
-                car.getBodyCar(), users);
+                car.getBodyCar());
         Advertisement ads =
                 new Advertisement(header, desc, false, photo,
                                 LocalDateTime.now().withNano(0), user, car);
@@ -208,7 +204,6 @@ public class AdsRepositoryTest {
         String desc = "Машина не бита не крашена, не была в угоне. "
                 + "Ну почти, отвечаю, мамой клянусь";
         boolean isCeil = false;
-        Set<User> users = Set.of(user);
         byte[] photo = new byte[]{};
         carRepository.addMark(mark);
         carRepository.addEngine(engine);
@@ -216,7 +211,7 @@ public class AdsRepositoryTest {
         Car car = new Car(67,
                 carRepository.findMarkById(mark.getId()).get(),
                 carRepository.findEngineById(engine.getId()).get(),
-                carRepository.findBodyCarById(bodyCar.getId()).get(), users);
+                carRepository.findBodyCarById(bodyCar.getId()).get());
         carRepository.addCar(car);
         userRepository.addUser(user);
         Advertisement ads =

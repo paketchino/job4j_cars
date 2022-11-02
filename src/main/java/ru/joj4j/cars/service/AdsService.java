@@ -1,5 +1,6 @@
 package ru.joj4j.cars.service;
 
+import lombok.AllArgsConstructor;
 import ru.joj4j.cars.model.Advertisement;
 import ru.joj4j.cars.model.BodyCar;
 import ru.joj4j.cars.model.Engine;
@@ -13,14 +14,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 @ThreadSafe
 public class AdsService implements AdsServiceInterface {
 
     private final AdsRepository adsRepository;
-
-    public AdsService(AdsRepository adsRepository) {
-        this.adsRepository = adsRepository;
-    }
 
     @Override
     public List<Advertisement> findAll() {

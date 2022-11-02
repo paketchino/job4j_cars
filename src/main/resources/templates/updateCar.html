@@ -44,56 +44,47 @@
     </nav>
     <div class="row">
         <div class="card-header">
-            Обновление объявления о продаже.
+            Редактирование машины
         </div>
         <div class="card-body">
-            <form class="form-horizontal" style="width: 100%" th:action="@{/updateAdvertisement}" th:method="POST"
-                  enctype="multipart/form-data" th:object="${advertisement}">
+            <form class="form-horizontal" style="width: 100%" th:action="@{/updateCar}" th:method="POST"
+                  enctype="multipart/form-data" th:object="${car}">
                 <input type="hidden" name="id" th:field="*{id}"/>
                 <div class="form-group">
                     <div class="form-group">
-                        <label for="header">Объявления</label>
-                        <input type="text" class="form-control" name="header" id="header" th:field="*{header}" >
-                        <label for="description">Описание</label>
-                        <input type="text" class="form-control" name="description" id="description" th:field="*{description}">
-                        <div class="form-group">
-                            <label for="bodyCar.id">Тип кузова</label>
-                            <select class="form-control" id="bodyCar.id" name="bodyId">
-                                <option
-                                        th:each="bodyCar: ${bodyCars}"
-                                        th:value="${bodyCar.id}"
-                                        th:text="${bodyCar.name}">
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="mark.id">Марка</label>
-                            <select class="form-control" id="mark.id" name="markId">
-                                <option
-                                        th:each="mark: ${marks}"
-                                        th:value="${mark.id}"
-                                        th:text="${mark.name}">
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="engine.id">Двигатель</label>
-                            <select class="form-control" id="engine.id" name="engineId">
-                                <option
-                                        th:each="engine: ${engines}"
-                                        th:value="${engine.id}"
-                                        th:text="${engine.name}">
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                        <label for="file">Фотография</label>
-                        <input type="file" class="form-control" name="file" id="file">
+                        <label for="bodyCar.id">Тип кузова</label>
+                        <select class="form-control" id="bodyCar.id" name="bodyId">
+                            <option
+                                    th:each="bodyCar: ${bodyCars}"
+                                    th:value="${bodyCar.id}"
+                                    th:text="${bodyCar.name}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mark.id">Марка</label>
+                        <select class="form-control" id="mark.id" name="markId">
+                            <option
+                                    th:each="mark: ${marks}"
+                                    th:value="${mark.id}"
+                                    th:text="${mark.name}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="engine.id">Двигатель</label>
+                        <select class="form-control" id="engine.id" name="engineId">
+                            <option
+                                    th:each="engine: ${engines}"
+                                    th:value="${engine.id}"
+                                    th:text="${engine.name}">
+                            </option>
+                        </select>
                     </div>
                     <a th:href="@{|confirmationUpdate|}">
                         <button type="submit" class="btn btn-primary">Подтвердить</button>
                     </a>
-                    </div>
+                </div>
             </form>
         </div>
     </div>
